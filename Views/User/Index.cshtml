@@ -1,0 +1,14 @@
+﻿@model List<WebMVC.Models.UserViewModel>
+
+@{
+    ViewData["Title"] = "Список пользователей";
+}
+
+<h1>Список пользователей</h1>
+
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>@user.Username (@user.Email)</li>
+    }
+</ul>

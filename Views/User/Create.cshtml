@@ -1,0 +1,43 @@
+﻿@model UserViewModel
+
+<h>Создание нового аккаунта</h>
+<hr />
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+                        <div class="card-header">
+                            <h5>Введите данные:</h5>
+                        </div>
+                        
+                        <div class="card-body">
+                            <form asp-controller="User" asp-action="CreateUser" method="post">
+                            
+                                <div class="mb-3">
+                                    <label class="form-label">Имя пользователя</label>
+                                    <input asp-for="Username" type="text" class="form-control"/>
+                                </div>
+                            
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input asp-for="Email" type="text" class="form-control"/>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Пароль</label>
+                                    <input asp-for="Password" type="text" class="form-control"/>
+                                    </div>
+                                
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            
+                            </form> 
+                        </div>
+                        
+                        <div class="card-footer">
+                                            
+                        </div>
+        
+                    </div>
+    </div>
+</div>

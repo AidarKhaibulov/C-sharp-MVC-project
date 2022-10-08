@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\HelloWorld\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\HelloWorld\Index.razor" />
+      <_ContentIncludedByDefault Remove="Views\Checkout\Checkout.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Checkout\ThankYou.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Checkout\Checkout.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Checkout\ThankYou.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Goods.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\HelloWorld\Index.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\images" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="EntityFramework" Version="4.3.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-rc.1.22426.7" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0-rc.1" />
+    </ItemGroup>
+
+</Project>
