@@ -7,7 +7,7 @@ public class UserController : Controller
 {
     private static List<UserViewModel> dogs = new List<UserViewModel>();
     // GET
-    public IActionResult Index()
+    public IActionResult UsersList()
     {
         return View(dogs);
     }
@@ -20,7 +20,7 @@ public class UserController : Controller
     public IActionResult CreateUser(UserViewModel dogViewModel)
     {
         dogs.Add(dogViewModel);
-       return RedirectToAction(nameof(Index));
+       return RedirectToAction(nameof(UsersList));
     }
     public IActionResult Hello()
     {
