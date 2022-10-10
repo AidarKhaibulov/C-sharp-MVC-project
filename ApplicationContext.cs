@@ -11,12 +11,12 @@ public class ApplicationContext:DbContext
     {
     }
 
-    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql("Host=localhost;" +
                                  "Port=5432;" +
                                  "Database=Test;" +
                                  "Username=postgres;" +
                                  "Password=sitis");
-    }*/
+    }
 }
