@@ -7,9 +7,17 @@ namespace WebMVC.Controllers;
 
 public class UserController : Controller
 {
-    // GET
-    private static ApplicationContext db = new ApplicationContext(options: new DbContextOptions<ApplicationContext>());
-    private static List<UserViewModel> users = db.User.ToList();
+    private ApplicationContext db;
+
+    private static List<UserViewModel> users;
+    //private static ApplicationContext db = new (options: new DbContextOptions<ApplicationContext>());
+    
+
+    public UserController(ApplicationContext context)
+    {
+        db = context;
+        users= db.User.ToList();
+    }
     public IActionResult UsersList()
     {
         return View(users);
@@ -29,6 +37,10 @@ public class UserController : Controller
             db.SaveChanges();
         
        return RedirectToAction(nameof(UsersList));
+    }
+    public IActionResult Delete()
+    {
+        return View();
     }
     public IActionResult Hello()
     {

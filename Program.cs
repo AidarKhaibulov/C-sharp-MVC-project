@@ -24,7 +24,19 @@ app.MapGet("/users/{id:int}", async (int id, ApplicationContext db) =>
     // если пользователь найден, отправляем его
     return Results.Json(user);
 });
-
+app.MapDelete("/users/{id:int}", async (int id, ApplicationContext db) =>
+{
+    // получаем пользователя по id
+    UserViewModel? user = await db.User.FirstOrDefaultAsync(u => u.Id == id);
+ 
+    // если не найден, отправляем статусный код и сообщение об ошибке
+    if (user == null) return Results.NotFound(new { message = "Пользователь не найден" });
+ 
+    // если пользователь найден, удаляем его
+    db.User.Remove(user);
+    await db.SaveChangesAsync();
+    return Results.Json(user);
+});
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -44,11 +56,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapPost("/api/users", async (UserViewModel user, ApplicationContext db) =>
-{
-    // добавляем пользователя в массив
-    await db.User.AddAsync(user);
-    await db.SaveChangesAsync();
-    return user;
-});
+
 app.Run();

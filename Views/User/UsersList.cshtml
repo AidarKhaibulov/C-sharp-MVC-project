@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>METANIT.COM</title>
+    <title>Список пользователей</title>
 <style>
 td {padding:5px;}
 button{margin: 5px;}
@@ -11,7 +11,7 @@ button{margin: 5px;}
 <body>
     <h2>Список пользователей</h2>
 <table>
-        <thead><tr><th>Имя пользователя</th><th>Email</th><th>Пароль</th><th></th></tr></thead>
+        <thead><tr><th>Имя пользователя</th><th>Имя пользователя</th><th>Email</th><th>Пароль</th><th></th></tr></thead>
         <tbody>
         </tbody>
     </table>
@@ -45,7 +45,7 @@ button{margin: 5px;}
   
             const tr = document.createElement("tr");
             tr.setAttribute("data-rowid", user.id);
-  
+  console.log(user.id);
             const nameTd = document.createElement("td");
             nameTd.append(user.username);
             tr.append(nameTd);

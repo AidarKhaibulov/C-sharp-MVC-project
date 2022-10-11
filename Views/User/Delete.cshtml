@@ -1,0 +1,46 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Удаление пользователя</title>
+    <style>
+td {padding:5px;}
+button{margin: 5px;}
+</style>
+</head>
+<body>
+<h2>Удаление пользователя</h2>
+    <div>
+        <p>
+            Введите Id:<br />
+            <input id="userId" type="number" />
+        </p>
+         <p>
+            <button id="deleteBtn">Удалить</button>
+            <button id="resetBtn">Сбросить</button>
+        </p>
+    </div>
+<script>
+async function deleteUser(id) {
+            const response = await fetch(`/users/${id}`, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const user = await response.json();
+                document.querySelector(`tr[data-rowid='${user.id}']`).remove();
+            }
+            else {
+                const error = await response.json();
+                console.log(error.message);
+            }
+        }
+        
+        document.getElementById("deleteBtn").addEventListener("click", async () => {
+            await deleteUser(document.getElementById("userId").value);
+        });
+</script>
+</body>
+</html>
