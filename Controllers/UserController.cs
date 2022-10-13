@@ -18,29 +18,54 @@ public class UserController : Controller
         db = context;
         users= db.User.ToList();
     }
-    public IActionResult UsersList()
+    public async Task<IActionResult> UsersList()
     {
-        return View(users);
+        return View(await db.User.ToListAsync());
     }
     public IActionResult Create()
     {
-        var userVm = new UserViewModel();
-        return View(userVm); 
+        return View(); 
     }
-
-    public IActionResult CreateUser(UserViewModel userViewModel)
+[HttpPost]
+    public async Task<IActionResult> Create(UserViewModel userViewModel)
     {
-        users.Add(userViewModel);
-        
-            UserViewModel newUser = userViewModel;
-            db.User.AddRange(newUser);
-            db.SaveChanges();
-        
-       return RedirectToAction(nameof(UsersList));
+        db.User.Add(userViewModel);
+        await db.SaveChangesAsync();
+        return RedirectToAction("UsersList");
     }
-    public IActionResult Delete()
+    //delete data
+    [HttpPost]
+    public async Task<IActionResult> Delete(int? id)
     {
-        return View();
+        if (id != null)
+        {
+            UserViewModel? user = await db.User.FirstOrDefaultAsync(p => p.Id == id);
+            if (user != null)
+            {
+                db.User.Remove(user);
+                await db.SaveChangesAsync();
+                return RedirectToAction("UsersList");
+            }
+        }
+        return NotFound();
+    }
+    //edit data
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if(id!=null)
+        {
+            UserViewModel? user = await db.User.FirstOrDefaultAsync(p=>p.Id==id);
+            if (user != null) return View(user);
+        }
+        return NotFound();
+    }
+    [HttpPost]
+    public async Task<IActionResult> Edit(UserViewModel user)
+    {
+       
+        db.User.Update(user);
+        await db.SaveChangesAsync();
+        return RedirectToAction("UsersList");
     }
     public IActionResult Hello()
     {

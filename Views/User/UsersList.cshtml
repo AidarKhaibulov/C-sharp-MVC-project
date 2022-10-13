@@ -1,70 +1,23 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Список пользователей</title>
-<style>
-td {padding:5px;}
-button{margin: 5px;}
-</style>
-</head>
-<body>
-    <h2>Список пользователей</h2>
-<table>
-        <thead><tr><th>Имя пользователя</th><th>Имя пользователя</th><th>Email</th><th>Пароль</th><th></th></tr></thead>
-        <tbody>
-        </tbody>
-    </table>
-<script>
-  
-    // Получение всех пользователей
-        async function getUsers() {
-            // отправляет запрос и получаем ответ
-            const response = await fetch("/users", {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            // если запрос прошел нормально
-            if (response.ok === true) {
-                // получаем данные
-                const users = await response.json();
-                const rows = document.querySelector("tbody");
-                // добавляем полученные элементы в таблицу
-                users.forEach(user =>
-                {
-                    rows.append(row(user));
-                    //console.log(user.username);
-                }
-                );
-                
-            }
-        }
-        
-        // создание строки для таблицы
-        function row(user) {
-  
-            const tr = document.createElement("tr");
-            tr.setAttribute("data-rowid", user.id);
-  console.log(user.id);
-            const nameTd = document.createElement("td");
-            nameTd.append(user.username);
-            tr.append(nameTd);
-  
-            const email = document.createElement("td");
-            email.append(user.email);
-            tr.append(email);
-            
-            const password = document.createElement("td");
-                        password.append(user.password);
-                        tr.append(password);
-  
-         
-  
-            return tr;
-        }
- 
-        // загрузка пользователей
-        getUsers();
-    </script>
-</body>
-</html>
+﻿@model IEnumerable<WebMVC.Models.UserViewModel>
+
+<h2>Список пользователей</h2>
+<p><a asp-action="Create">Создать нового пользователя</a></p>
+<table class="table">
+    <tr><th>Имя пользователя</th><th>Email</th><th>Пароль</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Username</td>
+            <td>@item.Email</td>
+            <td>@item.Password</td>
+            <td>
+                            <a asp-action="Edit" asp-controller="User" asp-route-id="@item.Id">Изменить</a>
+                        </td>
+                        <td>
+                            <form asp-controller="User" asp-action="Delete" method="post"  asp-route-id="@item.Id">
+                                <input type="submit" value="Удалить" />
+                            </form>
+                        </td>
+        </tr>
+    }
+</table>

@@ -2,7 +2,7 @@
 
 namespace WebMVC.Views.HelloWorld;
 
-public class Delete : PageModel
+public class Edit : PageModel
 {
     public void OnGet()
     {
