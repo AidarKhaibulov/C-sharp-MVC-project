@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebMVC.Models;
 
 namespace WebMVC.Controllers;
-
+//[Authorize]
+//[ApiController]
+//[Route("[controller]")]
 public class UserController : Controller
 {
     private ApplicationContext db;

@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebMVC.Models;
 
 namespace WebMVC;
 
-public class ApplicationContext:DbContext
+public class ApplicationContext:IdentityDbContext<IdentityUser>
 {
     public DbSet<UserViewModel> User => Set<UserViewModel>();
 
