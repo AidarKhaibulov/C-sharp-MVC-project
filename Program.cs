@@ -1,12 +1,15 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebMVC;
 using WebMVC.Models;
+using WebMVC.Services;
 
-    
+
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
@@ -18,6 +21,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
         options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }
 );
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,7 +30,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>()
     .AddDefaultTokenProviders();
-
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -48,10 +51,12 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
         };
     });
-
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddScoped<AccountService, AccountServiceImplementation>();
 builder.Services.AddMvc();
 var app = builder.Build();
-
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -67,13 +72,14 @@ app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseRouting();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Account}/{action=Index}/{id?}");
 app.UseAuthorization();
 app.MapControllers();
 /*app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });*/
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.Run();

@@ -3,13 +3,128 @@
 <head>
     <meta charset="utf-8" />
     <title>Главная</title>
-<style>
-td {padding:5px;}
-button{margin: 5px;}
-</style>
 </head>
 <body>
-    <h2>Привет, мир!</h2>
-
+    <div id="userInfo" style="display:none;">
+        <p>Вы вошли как: <span id="userNameSigned"></span></p>
+        <input type="button" value="Выйти" id="logOut" />
+    </div>
+    <div id="loginForm">
+        <h3>Вход на сайт</h3>
+        <label>Введите имя пользователя</label><br />
+        <input type="text" id="username" /> <br /><br />
+        <label>Введите пароль</label><br />
+        <input type="password" id="password" /><br /><br />
+        <input type="submit" id="submitLogin" value="Логин" />
+    </div>
+    <div>
+        <input type="submit" id="getDataByLogin" value="Данные по логину" />
+    </div>
+    <div>
+        <input type="submit" id="getDataByRole" value="Данные по роли" />
+    </div>
+ 
+    <script>
+        var tokenKey = "accessToken";
+ 
+        // отпавка запроса к контроллеру AccountController для получения токена
+        async function getTokenAsync() {    
+            // отправляет запрос и получаем ответ
+            const response = await fetch("api/Auth/login", {
+                method: "POST",            
+                headers: {"Accept": "application/json",
+                "Content-Type":"application/json"},
+                body: JSON.stringify({"Username": document.getElementById("username").value,
+                                       "Password": document.getElementById("password").value})
+            });
+            
+            const data = await response.json();
+                 
+            // если запрос прошел нормально
+            if (response.ok === true) {
+                // получаем данные 
+                
+                // изменяем содержимое и видимость блоков на странице
+                document.getElementById("userNameSigned").innerText =document.getElementById("username").value  /*data.username*/;  
+                document.getElementById("userInfo").style.display = "block";
+                document.getElementById("loginForm").style.display = "none";
+                // сохраняем в хранилище sessionStorage токен доступа
+                sessionStorage.setItem(tokenKey, data.token);
+                //console.log(sessionStorage.getItem(tokenKey));  
+                getData("Home/Privacy");
+                /*const response = await fetch("Home/Privacy", {
+                                method: "GET",
+                                headers: {
+                                    "Accept": "application/json",
+                                    "Content-Type":"application/json",
+                                    "Authorization": "Bearer " + sessionStorage.getItem(tokenKey)  // передача токена в заголовке
+                                }
+                            });
+                if (response.ok === true) {
+                                 
+                                const data = await response.json();
+                                alert(data)
+                            }
+                            else
+                                console.log("Status: ", response.status);*/
+             }
+            else {
+                // если произошла ошибка, из errorText получаем текст ошибки
+                console.log("Error: ", response.status, data.errorText);
+            }
+        };
+        // отправка запроса к контроллеру ValuesController
+        async function getData(url) {
+            const token = sessionStorage.getItem(tokenKey);
+ 
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + token  // передача токена в заголовке
+                }
+                
+            });
+            if (response.json().ok === true) {
+                 
+                const data = await response.json();
+                alert(data)
+            }
+            else
+                console.log("Status: ", response.status);
+        };
+ 
+        // получаем токен
+        document.getElementById("submitLogin").addEventListener("click", e => {
+ 
+            e.preventDefault();
+            getTokenAsync();
+        });
+ 
+        // условный выход - просто удаляем токен и меняем видимость блоков
+        document.getElementById("logOut").addEventListener("click", e => {
+ 
+            e.preventDefault();
+            document.getElementById("userName").innerText = "";
+            document.getElementById("userInfo").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+            sessionStorage.removeItem(tokenKey);
+        });
+ 
+ 
+        // кнопка получения имя пользователя  - /api/values/getlogin
+        document.getElementById("getDataByLogin").addEventListener("click", e => {
+ 
+            e.preventDefault();
+            getData("/api/values/getlogin");
+        });
+ 
+        // кнопка получения роли  - /api/values/getrole
+        document.getElementById("getDataByRole").addEventListener("click", e => {
+ 
+            e.preventDefault();
+            getData("/api/values/getrole");
+        });
+    </script>
 </body>
 </html>

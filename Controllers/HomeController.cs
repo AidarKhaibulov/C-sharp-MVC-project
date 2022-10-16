@@ -5,10 +5,8 @@ using WebMVC.Models;
 
 namespace WebMVC.Controllers
 {
-    [Authorize]
-    
-    [Route("[controller]")]
-    [ApiController]
+    //[Route("[controller]")]
+    //[ApiController]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,12 +16,12 @@ namespace WebMVC.Controllers
             _logger = logger;
         }
        
-        [HttpGet("Index")]
+        //[HttpGet("Index")]
         public IActionResult Index()
         {
             return View();
         }
-        [HttpGet("Privacy")]
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
