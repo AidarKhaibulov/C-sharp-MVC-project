@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,9 @@ namespace WebMVC.Controllers;
 public class UserController : Controller
 {
     private ApplicationContext db;
-
     private static List<UserViewModel> users;
     //private static ApplicationContext db = new (options: new DbContextOptions<ApplicationContext>());
     
-
     public UserController(ApplicationContext context)
     {
         db = context;
@@ -23,7 +22,9 @@ public class UserController : Controller
     }
     public async Task<IActionResult> UsersList()
     {
-        return View(await db.User.ToListAsync());
+        if(HttpContext.Session.Keys.Contains("username"))
+            return View(await db.User.ToListAsync());
+        return View("Error");
     }
     public IActionResult Create()
     {

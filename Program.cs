@@ -9,7 +9,6 @@ using WebMVC;
 using WebMVC.Models;
 using WebMVC.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
