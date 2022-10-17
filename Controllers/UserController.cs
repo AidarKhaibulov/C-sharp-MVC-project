@@ -24,7 +24,8 @@ public class UserController : Controller
     {
         if(HttpContext.Session.Keys.Contains("username"))
             return View(await db.User.ToListAsync());
-        return View("Error");
+        return PartialView("Error");
+        //return Redirect("/Error1");
     }
     public IActionResult Create()
     {

@@ -71,6 +71,7 @@ app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseRouting();
+//app.Map("/Error1", () => Results.NotFound(new { message= "Resource Not Found"}));
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Index}/{id?}");
