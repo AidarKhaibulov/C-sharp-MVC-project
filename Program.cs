@@ -74,7 +74,7 @@ app.UseRouting();
 //app.Map("/Error1", () => Results.NotFound(new { message= "Resource Not Found"}));
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 app.UseAuthorization();
 app.MapControllers();
 /*app.UseEndpoints(endpoints =>

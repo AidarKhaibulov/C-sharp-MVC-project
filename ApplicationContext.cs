@@ -4,10 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using WebMVC.Models;
 
 namespace WebMVC;
-
+/// <summary>
+/// Data base context
+/// </summary>
 public class ApplicationContext:IdentityDbContext<IdentityUser>
 {
     public DbSet<UserViewModel> User => Set<UserViewModel>();
+    public DbSet<ProductViewModel> Product => Set<ProductViewModel>();
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
     {

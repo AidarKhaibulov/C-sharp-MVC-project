@@ -8,8 +8,10 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 
-namespace WebMVC.Controllers
-{
+namespace WebMVC.Controllers;
+/// <summary>
+/// JWT login/registration logic controller
+/// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -128,4 +130,3 @@ namespace WebMVC.Controllers
             return token;
         }
     }
-}

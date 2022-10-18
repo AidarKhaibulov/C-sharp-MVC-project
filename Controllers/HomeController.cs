@@ -1,36 +1,41 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebMVC.Models;
 
-namespace WebMVC.Controllers
-{
-    //[Route("[controller]")]
-    //[ApiController]
+namespace WebMVC.Controllers;
+
+    /// <summary>
+    /// Controller for showing main application content such as products, navigation buttons for search
+    /// products, filters, list of recently viewed products and recommendations
+    /// </summary>
     public class HomeController : Controller
     {
+        private ApplicationContext db;
+        private static List<ProductViewModel> products;
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        
+        public HomeController(ApplicationContext context, ILogger<HomeController> logger)
         {
             _logger = logger;
+            db = context;
+            products= db.Product.ToList();
         }
-       
-        //[HttpGet("Index")]
+        /// <summary>
+        /// JWT registration form. DELETE
+        /// </summary>
         public IActionResult Index()
         {
+            //DELETE
             return View();
         }
-        [Authorize]
-        public IActionResult Privacy()
+        /// <summary>
+        /// Represents main page with products list
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Main()
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            return View(await db.Product.ToListAsync());
         }
     }
-}
