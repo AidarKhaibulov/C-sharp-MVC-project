@@ -1,0 +1,22 @@
+﻿@model IEnumerable<WebMVC.Models.UserViewModel>
+
+<h2>Список пользователей</h2>
+<table class="table">
+    <tr><th>Имя пользователя</th><th>Email</th><th>Пароль</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Username</td>
+            <td>@item.Email</td>
+            <td>@item.Password</td>
+            <td>
+                <a asp-action="Edit" asp-controller="Account" asp-route-id="@item.Id">Изменить</a>
+            </td>
+            <td>
+                <form asp-controller="Account" asp-action="Delete" method="post"  asp-route-id="@item.Id">
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>

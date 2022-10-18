@@ -1,0 +1,24 @@
+﻿@model WebMVC.Models.UserViewModel
+
+<h2>Редактирование пользователя</h2>
+<form asp-action="Edit" asp-controller="Account" asp-route-id="@Model.Id">
+    <p>
+        <label asp-for="Username">Имя пользователя</label><br />
+        <input type="text" asp-for="Username" />
+    </p>
+    <p>
+        <label asp-for="Email">Email</label><br />
+        <input type="text" asp-for="Email" />
+    </p>
+    <p>
+        <label asp-for="Password">Пароль</label><br />
+        <input type="text" asp-for="Password" />
+    </p>
+     <p>
+            <label asp-for="Role">Роль</label><br />
+            <input type="text" asp-for="Role" />
+        </p>
+    <p>
+        <input type="submit" value="Сохранить" />
+    </p>
+</form>

@@ -1,0 +1,69 @@
+﻿@model UserViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/WebMVC.styles.css" asp-append-version="true"/>
+</head>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+<h>Создание нового аккаунта</h>
+<hr />
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Введите данные:</h5>
+                </div>
+                        
+                <div class="card-body">
+                    <form asp-controller="Account" asp-action="register">
+                            
+                        <div class="mb-3">
+                            <label class="form-label">Имя пользователя</label>
+                            <input asp-for="Username" type="text" class="form-control"/>
+                        </div>
+                            
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email" type="text" class="form-control"/>
+                        </div>
+                                
+                        <div class="mb-3">
+                            <label class="form-label">Пароль</label>
+                            <input asp-for="Password" type="text" class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            
+                            <input  asp-for="Role" class="form-control" type="hidden" value="user" />
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Создать</button>
+                        </div>
+                            
+                    </form> 
+                </div>
+                        
+                <div class="card-footer">
+                                            
+                </div>
+        
+            </div>
+        </div>
+    </div>
+        </main>
+    </div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
