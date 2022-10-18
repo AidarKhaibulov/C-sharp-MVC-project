@@ -11,6 +11,7 @@ public class ApplicationContext:IdentityDbContext<IdentityUser>
 {
     public DbSet<UserViewModel> User => Set<UserViewModel>();
     public DbSet<ProductViewModel> Product => Set<ProductViewModel>();
+    public DbSet<FavoriteProductsViewModel> FavoriteProducts => Set<FavoriteProductsViewModel>();
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
     {

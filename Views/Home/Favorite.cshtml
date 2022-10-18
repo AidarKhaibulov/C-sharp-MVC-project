@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebMVC.Models.ProductViewModel>
+﻿@model IEnumerable<WebMVC.Models.UserViewModel>
 <!DOCTYPE html>
 
 <html>
@@ -27,7 +27,7 @@
     {
         <tr>
             <figure>
-                <img class="img-thumbnail" src="@item.Image" alt="@item.Name" width="200px" height="200px" object-fit="cover" >
+                <p>@item.FavoriteProducts?.Products</p>
             </figure>
         </tr>
     }

@@ -58,7 +58,7 @@ var app = builder.Build();
 app.UseSession();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -68,18 +68,11 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseAuthentication();
 app.UseRouting();
-//app.Map("/Error1", () => Results.NotFound(new { message= "Resource Not Found"}));
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");
 app.UseAuthorization();
 app.MapControllers();
-/*app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});*/
-
 app.Run();

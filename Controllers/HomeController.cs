@@ -42,6 +42,7 @@ namespace WebMVC.Controllers;
         /// </summary>
         public async Task<IActionResult> Favorite()
         {
-            return View(await db.Product.ToListAsync());
+            // return View(await db.User.ToListAsync());
+           return View(db.User.Include(u=>u.FavoriteProducts).ToList());
         }
     }
