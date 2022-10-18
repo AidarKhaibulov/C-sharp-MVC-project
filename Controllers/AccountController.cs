@@ -12,8 +12,7 @@ public class AccountController:Controller
 {
     private ApplicationContext db;
     private static List<UserViewModel> users;
-    //private static ApplicationContext db = new (options: new DbContextOptions<ApplicationContext>());
-    
+
     private AccountService accountService;
 
     public AccountController(ApplicationContext context,AccountService _accountService)
@@ -22,16 +21,10 @@ public class AccountController:Controller
         db = context;
         users= db.User.ToList();
     }
-    /// <summary>
-    /// Login page
-    /// </summary>
     public IActionResult Login()
     {
         return PartialView("Login");
     }
-    /// <summary>
-    /// Login and redirection to main page
-    /// </summary>
     [HttpPost]
     public IActionResult Login(string username, string password)
     {
@@ -52,25 +45,15 @@ public class AccountController:Controller
         ViewBag.username = HttpContext.Session.GetString("username");
         return View();
     }
-    /// <summary>
-    /// LogOut current session
-    /// </summary>
-    /// <returns>Returns LogIn page</returns>
     public IActionResult Logout()
     {
         HttpContext.Session.Remove("username");
         return RedirectToAction("Login");
     }
-    /// <summary>
-    /// New account registration page
-    /// </summary>
     public IActionResult Register()
     {
         return View();
     }
-    /// <summary>
-    /// Registration new account and redirect to main page
-    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Register(UserViewModel userViewModel)
     {
@@ -82,9 +65,6 @@ public class AccountController:Controller
         //If registration performs without existing session then redirect to Login page.
         return Redirect("/");
     }
-    /// <summary>
-    /// Page contains list of all users with Edit and Delete options
-    /// </summary>
     public async Task<IActionResult> UsersList()
     {
         if(HttpContext.Session.Keys.Contains("username"))
@@ -92,9 +72,6 @@ public class AccountController:Controller
         //TODO: create custom authorize filter and use it instead checking HttpContext.Session.Keys.Contains("username") all the time
         return NotFound();
     }
-    /// <summary>
-    /// Edit user page, gets id from UsersList page and opens page for editing information
-    /// </summary>
     public async Task<IActionResult> Edit(int? id)
     {
         if(id!=null)
@@ -104,9 +81,6 @@ public class AccountController:Controller
         }
         return NotFound();
     }
-    /// <summary>
-    /// Method for update new users information 
-    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Edit(UserViewModel user)
     {
@@ -114,9 +88,6 @@ public class AccountController:Controller
         await db.SaveChangesAsync();
         return RedirectToAction("UsersList");
     }
-    /// <summary>
-    /// Deleting user method, gets id from UsersList page and delete selected user
-    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Delete(int? id)
     {

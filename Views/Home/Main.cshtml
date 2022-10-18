@@ -5,32 +5,23 @@
 <head>
     <title>Главная</title>
 </head>
-<style>
-   figure {
-    width: 200px; /* Ширина */
-    height: 200px; /* Ширина */
-    float: left; /* Выстраиваем элементы по горизонтали */
-    margin: 0 0 0 3.5%; /* Отступ слева */
-    background: #f0f0f0; /* Цвет фона */
-    border-radius: 5px; /* Радиус скругления */
-    padding: 2%;
-    object-fit: cover;/* Поля */
-   }
-   figure:first-child {
-    margin-left: 0; /* Убираем отступ для первого элемента */
-   }
-  </style>
 <body>
 <div>
+     <td>
+                    <a asp-action="Favorite" asp-controller="Home">Избранное</a>
+                </td>
     <h3>MAIN</h3>
-    @foreach (var item in Model)
+    
+    <div class="container-img">
+        @foreach (var item in Model)
         {
-            <tr>
-                <figure>
-                    <img class="img-thumbnail" src="@item.Image" alt="@item.Name" width="200px" height="200px" object-fit="cover" >
-                </figure>
-            </tr>
+            <div class="item-grow">
+                <div class="item">
+                    <img class="img-thumbnail" src="@item.Image">
+                </div>
+            </div>
         }
+    </div>
 </div>
 </body>
 </html>

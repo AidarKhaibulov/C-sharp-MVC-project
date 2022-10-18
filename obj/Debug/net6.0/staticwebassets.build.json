@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VmLSXk0XMhJrj64T02djmKni24URdOw2tGf1Ya+1o6Q=",
+  "Hash": "p4DwIXU/XFpqWhX6W1gG4M//Ics5OJKlwCo/Pa5r9RY=",
   "Source": "WebMVC",
   "BasePath": "_content/WebMVC",
   "Mode": "Default",
@@ -102,6 +102,23 @@
       "OriginalItemSpec": "wwwroot\\images\\bask_python120.jpeg"
     },
     {
+      "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\images\\Camp_DYON_Red.jpeg",
+      "SourceId": "WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\",
+      "BasePath": "_content/WebMVC",
+      "RelativePath": "images/Camp_DYON_Red.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Camp_DYON_Red.jpeg"
+    },
+    {
       "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\images\\deuter_futura26.jpg",
       "SourceId": "WebMVC",
       "SourceType": "Discovered",
@@ -117,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\deuter_futura26.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\images\\LOWA Camino GTX - GORE TEX.jpeg",
+      "SourceId": "WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\",
+      "BasePath": "_content/WebMVC",
+      "RelativePath": "images/LOWA Camino GTX - GORE TEX.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\LOWA Camino GTX - GORE TEX.jpeg"
     },
     {
       "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\images\\osprey_green20.jpg",

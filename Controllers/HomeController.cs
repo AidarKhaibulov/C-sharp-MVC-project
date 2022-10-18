@@ -33,8 +33,14 @@ namespace WebMVC.Controllers;
         /// <summary>
         /// Represents main page with products list
         /// </summary>
-        /// <returns></returns>
         public async Task<IActionResult> Main()
+        {
+            return View(await db.Product.ToListAsync());
+        }
+        /// <summary>
+        /// Represents favorite products page
+        /// </summary>
+        public async Task<IActionResult> Favorite()
         {
             return View(await db.Product.ToListAsync());
         }

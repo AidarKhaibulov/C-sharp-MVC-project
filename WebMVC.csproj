@@ -15,6 +15,7 @@
       <_ContentIncludedByDefault Remove="Pages\Checkout\ThankYou.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\Goods.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\HelloWorld\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\User\Hello.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
