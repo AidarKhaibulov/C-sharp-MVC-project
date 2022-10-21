@@ -24,8 +24,8 @@ public class ApplicationContext:IdentityDbContext<IdentityUser>
 
     public DbSet<UserViewModel> User => Set<UserViewModel>();
     public DbSet<ProductViewModel> Product => Set<ProductViewModel>(); 
-    public DbSet<FavoriteProductsViewModel> FavoriteProducts => Set<FavoriteProductsViewModel>();
-    public DbSet<ProductFavoriteProductsRELATIONViewModel> ProductFavoriteProductsRELATION => Set<ProductFavoriteProductsRELATIONViewModel>();
+    public DbSet<Cart> Cart => Set<Cart>();
+    public DbSet<ProductCartRelationViewModel> ProductCartRelation => Set<ProductCartRelationViewModel>();
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
     {
@@ -33,7 +33,7 @@ public class ApplicationContext:IdentityDbContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<ProductFavoriteProductsRELATIONViewModel>().HasKey(i => new { i.FavoriteProductsId, i.ProductId });
+        builder.Entity<ProductCartRelationViewModel>().HasKey(i => new { i.FavoriteProductsId, i.ProductId });
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

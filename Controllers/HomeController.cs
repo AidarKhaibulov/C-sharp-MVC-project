@@ -41,9 +41,6 @@ namespace WebMVC.Controllers;
         {
             return View(await db.Product.ToListAsync());
         }
-        /// <summary>
-        /// Represents favorite products page
-        /// </summary>
         public async Task<IActionResult> Favorite()
         {
             List<string> products = new List<string>();
@@ -76,7 +73,7 @@ namespace WebMVC.Controllers;
                 sqlConn.Open();
                 NpgsqlCommand sqlCmd = new NpgsqlCommand(script1, sqlConn);
                 sqlCmd.ExecuteNonQuery();
-                FavoriteProductsViewModel cart = (await db.FavoriteProducts.FirstOrDefaultAsync(p =>
+                Cart cart = (await db.Cart.FirstOrDefaultAsync(p =>
                     p.UserId == HttpContext.Session.GetInt32("username")))!;
                 script2 = Regex.Replace(script2, @"SecondReplace", cart.Id.ToString());
                 sqlCmd = new NpgsqlCommand(script2, sqlConn);
