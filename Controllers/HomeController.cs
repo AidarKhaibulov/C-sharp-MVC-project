@@ -66,30 +66,23 @@ namespace WebMVC.Controllers;
             return View(products);
         }
         public async Task<IActionResult> AddToFavorite(int? id)
-        { 
+        {
             string script1 = System.IO.File.ReadAllText(@"Scripts/FavoriteProductsInsert.sql");
             script1 = Regex.Replace(script1, @"ToReplace", HttpContext.Session.GetInt32("username").ToString());
-            
             string script2 = System.IO.File.ReadAllText(@"Scripts/ProductFavoriteProductsRELATIONInsert.sql");
             script2 = Regex.Replace(script2, @"FirstReplace", id.ToString());
-            
-            
-            using (var sqlConn = new NpgsqlConnection("Host=localhost;" +
-                                                      "Port=5432;" +
-                                                      "Database=Test;" +
-                                                      "Username=postgres;" +
-                                                      "Password=sitis"))
+            using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
             {
                 sqlConn.Open();
                 NpgsqlCommand sqlCmd = new NpgsqlCommand(script1, sqlConn);
                 sqlCmd.ExecuteNonQuery();
-                FavoriteProductsViewModel cart = await db.FavoriteProducts.FirstOrDefaultAsync(p =>
-                    p.UserId == HttpContext.Session.GetInt32("username"));
+                FavoriteProductsViewModel cart = (await db.FavoriteProducts.FirstOrDefaultAsync(p =>
+                    p.UserId == HttpContext.Session.GetInt32("username")))!;
                 script2 = Regex.Replace(script2, @"SecondReplace", cart.Id.ToString());
                 sqlCmd = new NpgsqlCommand(script2, sqlConn);
                 sqlCmd.ExecuteNonQuery();
             }
-                return RedirectToAction("Main");
+            return RedirectToAction("Main");
         }
         
     }

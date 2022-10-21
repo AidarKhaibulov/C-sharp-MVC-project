@@ -89,16 +89,13 @@ public class AccountController:Controller
     [HttpPost]
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id != null)
-        {
-            UserViewModel? user = await db.User.FirstOrDefaultAsync(p => p.Id == id);
-            if (user != null)
-            {
-                db.User.Remove(user);
-                await db.SaveChangesAsync();
-                return RedirectToAction("UsersList");
-            }
-        }
-        return NotFound();
+        FavoriteProductsViewModel cart = await db.FavoriteProducts.FirstOrDefaultAsync(x => x.UserId == id);
+        List<ProductFavoriteProductsRELATIONViewModel> relation = db.ProductFavoriteProductsRELATION.Where(x
+            => x.FavoriteProductsId == cart.Id).ToList();
+        db.ProductFavoriteProductsRELATION.RemoveRange(relation);
+        db.FavoriteProducts.Remove(cart);
+        db.User.Remove(db.User.FirstOrDefault(x => x.Id == id));
+        await db.SaveChangesAsync();
+        return RedirectToAction("UsersList");
     }
 }
