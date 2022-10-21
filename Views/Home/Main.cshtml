@@ -7,21 +7,32 @@
 </head>
 <body>
 <div>
-     <td>
-                    <a asp-action="Favorite" asp-controller="Home">Избранное</a>
-                </td>
+     <td><a asp-action="Favorite" asp-controller="Home">Избранное</a></td>
     <h3>MAIN</h3>
-    
-    <div class="container-img">
+    <table class="table">
+    <tr><th>Название товара</th><th>Цена товара</th></tr>
+    <!--<div class="container-img">-->
         @foreach (var item in Model)
         {
-            <div class="item-grow">
-                <div class="item">
-                    <img class="img-thumbnail" src="@item.Image">
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>
+                    <a asp-action="AddToFavorite" asp-controller="Home" asp-route-id="@item.Id">Добавить в избранное</a>
+                </td>
+                
+           <!-- 
+                <div class="item-grow">
+                    <div class="item">
+                   
+                        @item.Name
+                    </div>
                 </div>
-            </div>
+                -->
+         </tr>
         }
+    </table>
     </div>
-</div>
+<!--</div>-->
 </body>
 </html>

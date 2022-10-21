@@ -14,4 +14,6 @@ public class ProductViewModel
     public string? Size { get; set; }
     public string Platform { get; set; }
     public string Image { get; set; }
+    public int? FavoriteId { get; set; }
+    public ICollection<ProductFavoriteProductsRELATIONViewModel> FavoriteProducts { get; set; }
 }

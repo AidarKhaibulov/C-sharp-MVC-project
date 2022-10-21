@@ -31,7 +31,7 @@ public class AccountController:Controller
         var account = accountService.Login(username, password);
         if (account != null)
         {
-            HttpContext.Session.SetString("username",username);
+            HttpContext.Session.SetInt32("username",account.Id);
             return Redirect("/Home/Main");
         }
         ViewBag.msg = "Неправильно введен логин или пароль";
@@ -42,7 +42,7 @@ public class AccountController:Controller
     /// </summary>
     public IActionResult Welcome()
     {
-        ViewBag.username = HttpContext.Session.GetString("username");
+        ViewBag.username = HttpContext.Session.GetInt32("username");
         return View();
     }
     public IActionResult Logout()
@@ -59,10 +59,8 @@ public class AccountController:Controller
     {
         db.User.Add(userViewModel);
         await db.SaveChangesAsync();
-        //If registration performs via existing session then redirect to Main page.
         if(HttpContext.Session.Keys.Contains("username"))
             return Redirect("/Home/Main");
-        //If registration performs without existing session then redirect to Login page.
         return Redirect("/");
     }
     public async Task<IActionResult> UsersList()
