@@ -81,5 +81,15 @@ namespace WebMVC.Controllers;
             }
             return RedirectToAction("Main");
         }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            int userId = ((int) HttpContext.Session.GetInt32("username"))!;
+            Cart cart = (await db.Cart.FirstOrDefaultAsync(x => x.UserId == userId))!;
+            ProductCartRelationViewModel relation =
+                db.ProductCartRelation.FirstOrDefault(x => x.FavoriteProductsId == cart.Id && x.ProductId==id);
+            if (relation != null) db.ProductCartRelation.RemoveRange(relation);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Main");
+        }
         
     }
