@@ -91,5 +91,10 @@ namespace WebMVC.Controllers;
             await db.SaveChangesAsync();
             return RedirectToAction("Main");
         }
-        
+        public async Task<IActionResult> ProductInfo(string id)
+        {
+            id = Regex.Match(id, @"\d+").ToString();
+            ProductViewModel product = await db.Product.FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(id));
+            return View(product);
+        }
     }
