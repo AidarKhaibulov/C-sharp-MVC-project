@@ -19,12 +19,14 @@ namespace WebMVC.Controllers;
         private ApplicationContext db;
         private static List<ProductViewModel> products;
         private readonly ILogger<HomeController> _logger;
+
         
         public HomeController(ApplicationContext context, ILogger<HomeController> logger)
         {
             _logger = logger;
             db = context;
             products= db.Product.ToList();
+        
         }
         /// <summary>
         /// JWT registration form. DELETE
@@ -41,26 +43,16 @@ namespace WebMVC.Controllers;
         {
             return View(await db.Product.ToListAsync());
         }
-        public async Task<IActionResult> Favorite()
+        
+        public async Task<IActionResult> Delete(int? id)
         {
-            List<string> products = new List<string>();
-            string script = System.IO.File.ReadAllText(@"Scripts/GetFavoriteProductsFromUserCart.sql");
-            script = Regex.Replace(script, @"ToReplace", HttpContext.Session.GetInt32("username").ToString());
-            using (var sqlConn = new NpgsqlConnection("Host=localhost;" +
-                                                      "Port=5432;" +
-                                                      "Database=Test;" +
-                                                      "Username=postgres;" +
-                                                      "Password=sitis"))
-            {
-                sqlConn.Open();
-                NpgsqlCommand sqlCmd = new NpgsqlCommand(script, sqlConn);
-                NpgsqlDataReader reader = sqlCmd.ExecuteReader();
-                if (reader.HasRows)
-                    while (reader.Read())
-                        products.Add(reader.GetString(0));
-                await reader.CloseAsync();
-            }
-            return View(products);
+            int userId = ((int) HttpContext.Session.GetInt32("username"))!;
+            Cart cart = (await db.Cart.FirstOrDefaultAsync(x => x.UserId == userId))!;
+            ProductCartRelationViewModel relation =
+                db.ProductCartRelation.FirstOrDefault(x => x.FavoriteProductsId == cart.Id && x.ProductId==id);
+            if (relation != null) db.ProductCartRelation.RemoveRange(relation);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Main");
         }
         public async Task<IActionResult> AddToFavorite(int? id)
         {
@@ -81,20 +73,53 @@ namespace WebMVC.Controllers;
             }
             return RedirectToAction("Main");
         }
-        public async Task<IActionResult> Delete(int? id)
-        {
-            int userId = ((int) HttpContext.Session.GetInt32("username"))!;
-            Cart cart = (await db.Cart.FirstOrDefaultAsync(x => x.UserId == userId))!;
-            ProductCartRelationViewModel relation =
-                db.ProductCartRelation.FirstOrDefault(x => x.FavoriteProductsId == cart.Id && x.ProductId==id);
-            if (relation != null) db.ProductCartRelation.RemoveRange(relation);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Main");
-        }
         public async Task<IActionResult> ProductInfo(string id)
         {
+            
             id = Regex.Match(id, @"\d+").ToString();
+            string script1 = System.IO.File.ReadAllText(@"Scripts/RecentlyCartInsert.sql");
+            script1 = Regex.Replace(script1, @"ToReplace", HttpContext.Session.GetInt32("username").ToString());
+            string script2 = System.IO.File.ReadAllText(@"Scripts/ProductRecentlyWatchedRELATIONInsert.sql");
+            script2 = Regex.Replace(script2, @"FirstReplace", id);
+            using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
+            {
+                sqlConn.Open();
+                NpgsqlCommand sqlCmd = new NpgsqlCommand(script1, sqlConn);
+                sqlCmd.ExecuteNonQuery();
+                RecentlyWatchedCartViewModel recentlyWatchedCart = (await db.RecentlyWatchedCart.FirstOrDefaultAsync(p =>
+                    p.UserId == HttpContext.Session.GetInt32("username")))!;
+                script2 = Regex.Replace(script2, @"SecondReplace", recentlyWatchedCart.Id.ToString());
+                sqlCmd = new NpgsqlCommand(script2, sqlConn);
+                sqlCmd.ExecuteNonQuery();
+            }
+            
             ProductViewModel product = await db.Product.FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(id));
             return View(product);
+        }
+        public async Task<IActionResult> Favorite()
+        {
+            return View(GetProductsFromCart("GetFavoriteProductsFromUserCart.sql"));
+        }
+        public async Task<IActionResult> RecentlyWatched()
+        {
+            return View( GetProductsFromCart("GetProductsFromRecentlyWatchedCart.sql"));
+        }
+
+        public List<ProductViewModel> GetProductsFromCart(string scriptPath)
+        {
+            List<ProductViewModel> products = new List<ProductViewModel>();
+            string script = System.IO.File.ReadAllText(@"Scripts/"+scriptPath);
+            script = Regex.Replace(script, @"ToReplace", HttpContext.Session.GetInt32("username").ToString());
+            using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
+            {
+                sqlConn.Open();
+                NpgsqlCommand sqlCmd = new NpgsqlCommand(script, sqlConn);
+                NpgsqlDataReader reader = sqlCmd.ExecuteReader();
+                if (reader.HasRows)
+                    while (reader.Read())
+                        products.Add(db.Product.FirstOrDefault(x=>x.Id==reader.GetInt32(0)));
+                reader.CloseAsync();
+            }
+            return products;
         }
     }

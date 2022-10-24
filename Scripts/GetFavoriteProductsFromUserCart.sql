@@ -1,4 +1,4 @@
-SELECT p."Name"
+SELECT p."Id"
   FROM "Product" p
     JOIN "ProductCartRelation" rel ON p."FavoriteId" = rel."ProductId"
     JOIN "Cart" f ON f."Id" = rel."FavoriteProductsId"
