@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebMVC;
+using WebMVC.Interfaces;
 using WebMVC.Models;
+using WebMVC.Repository;
 using WebMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +22,10 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
         options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }
 );
-
-builder.Services.AddControllers();
+builder.Services.AddScoped<IRepository<UserViewModel>, UserRepository>();
+builder.Services.AddScoped<IRepository<ProductViewModel>, ProductsRepository>();
+builder.Services.AddScoped<ICartRepository<Cart>, CartRepository>();
+builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddControllersWithViews();
@@ -73,6 +77,11 @@ app.UseRouting();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");
+/*app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});*/
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

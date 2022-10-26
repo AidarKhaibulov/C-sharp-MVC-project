@@ -10,6 +10,7 @@ namespace WebMVC;
 /// </summary>
 public class ApplicationContext:IdentityDbContext<IdentityUser>
 {
+    //TODO: rename all the viewmodels
     public static string ConnectionString
     {
         get

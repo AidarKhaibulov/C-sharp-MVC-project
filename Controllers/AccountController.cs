@@ -7,7 +7,8 @@ namespace WebMVC.Controllers;
 /// <summary>
 /// User's accounts controller. Performs LogIn, Registration logic. Provides account's information, allows edit and delete data.
 /// </summary>
-
+/*[Route("api/[controller]")]
+[ApiController]*/
 public class AccountController:Controller
 {
     private ApplicationContext db;
@@ -21,6 +22,7 @@ public class AccountController:Controller
         db = context;
         users= db.User.ToList();
     }
+    /*[Route("Login")]*/
     public IActionResult Login()
     {
         return PartialView("Login");
@@ -32,7 +34,7 @@ public class AccountController:Controller
         if (account != null)
         {
             HttpContext.Session.SetInt32("username",account.Id);
-            return Redirect("/Home/Main");
+            return Redirect("Home/Main");
         }
         ViewBag.msg = "Неправильно введен логин или пароль";
         return View("Login");
