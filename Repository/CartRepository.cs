@@ -7,13 +7,14 @@ using WebMVC.Models;
 
 namespace WebMVC.Repository;
 
-public class CartRepository:ICartRepository<Cart>
+public class CartRepository:ICartRepository
 {
     private ApplicationContext _context;
     public CartRepository(ApplicationContext context)
     {
         _context = context;
     }
+    
     public List<ProductViewModel> GetProducts(HomeController.CartType sourceCartType,int userId)
     {
         string scriptPath = null;
@@ -41,7 +42,80 @@ public class CartRepository:ICartRepository<Cart>
         }
         return products;
     }
+    public int GetFirstProductIdInCart(HomeController.CartType sourceCartType,int userId)
+    {
+        int productId = -1;
+        string scriptPath = null;
+        switch (sourceCartType)
+        {
+            case HomeController.CartType.FavoriteProducts:
+                scriptPath = "GetFirstProductIdFromFavoriteCart.sql";
+                break;
+            case HomeController.CartType.RecentlyWatched:
+                scriptPath = "GetFirstProductIdFromRecentlyCart.sql";
+                break;
+        }
+        string script = File.ReadAllText(@"Scripts/"+scriptPath);
+        script = Regex.Replace(script, @"ToReplace", userId.ToString());
+        using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
+        {
+            sqlConn.Open();
+            NpgsqlCommand sqlCmd = new NpgsqlCommand(script, sqlConn);
+            NpgsqlDataReader reader = sqlCmd.ExecuteReader();
+            if (reader.HasRows)
+                while (reader.Read())
+                    productId = reader.GetInt32(0);
+            reader.CloseAsync();
+        }
+        return productId;
+    }
+    public List<ProductViewModel> FilterProductsByPrice(int minValue, int maxValue)
+    {
+        if(maxValue==0)maxValue=Int32.MaxValue;
+        List<ProductViewModel> productsToReturn = new List<ProductViewModel>();
+        string script = File.ReadAllText(@"Scripts/FilterScripts/GetProducts.sql");
+        script = Regex.Replace(script, @"FIRST_VALUE", minValue.ToString());
+        script = Regex.Replace(script, @"SECOND_VALUE", maxValue.ToString());
+        using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
+        {
+            sqlConn.Open();
+            NpgsqlCommand sqlCmd = new NpgsqlCommand(script, sqlConn);
+            NpgsqlDataReader reader = sqlCmd.ExecuteReader();
+            if (reader.HasRows)
+                while (reader.Read())
+                    productsToReturn.Add(_context.Product.FirstOrDefault(x=>x.Id==reader.GetInt32(0)));
+            reader.CloseAsync();
+        }
+        return productsToReturn;
+    }
 
+    public int GetProductsCount(HomeController.CartType targetCartType, int? userId)
+    {
+        string scriptPath = null;
+        switch (targetCartType)
+        {
+            case HomeController.CartType.FavoriteProducts:
+                scriptPath = "GetProductsCountFromFavoriteCart.sql";
+                break;
+            case HomeController.CartType.RecentlyWatched:
+                scriptPath = "GetProductsCountFromRecentlyCart.sql";
+                break;
+        }
+        int count=-1;
+        string script = File.ReadAllText(@"Scripts/"+scriptPath);
+        script = Regex.Replace(script, @"ToReplace", userId.ToString());
+        using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
+        {
+            sqlConn.Open();
+            NpgsqlCommand sqlCmd = new NpgsqlCommand(script, sqlConn);
+            NpgsqlDataReader reader = sqlCmd.ExecuteReader();
+            if (reader.HasRows)
+                while (reader.Read())
+                    count = reader.GetInt32(0);
+            reader.CloseAsync();
+        }
+        return count;
+    }
     public void AddProductToCart(HomeController.CartType targetCartType, string productId, int? userId)
     {
         switch (targetCartType)
@@ -90,18 +164,28 @@ public class CartRepository:ICartRepository<Cart>
                 break;
         }
     }
-
-    public Cart GetProductById(int id)
+    public void DeleteProductFromCart(HomeController.CartType targetCartType,int productId,int UserId)
     {
-        throw new NotImplementedException();
-    }
-
-    public void DeleteProductFromCart(int productId,int UserId)
-    {
-        Cart cart =  _context.Cart.FirstOrDefault(x => x.UserId == UserId)!;
-        ProductCartRelationViewModel relation =
-            _context.ProductCartRelation.FirstOrDefault(x => x.FavoriteProductsId == cart.Id && x.ProductId==productId);
-        if (relation != null) _context.ProductCartRelation.RemoveRange(relation);
-        _context.SaveChangesAsync();
+        switch (targetCartType)
+        {
+            case HomeController.CartType.FavoriteProducts:
+                Cart cart =  _context.Cart.FirstOrDefault(x => x.UserId == UserId)!;
+                ProductCartRelationViewModel relation =
+                    _context.ProductCartRelation.FirstOrDefault(x => 
+                        x.FavoriteProductsId == cart.Id && x.ProductId==productId)!;
+                _context.ProductCartRelation.RemoveRange(relation);
+                _context.SaveChangesAsync();
+                break;
+            case HomeController.CartType.RecentlyWatched:
+                RecentlyWatchedCartViewModel recentlyCart =  _context.RecentlyWatchedCart.FirstOrDefault(x => 
+                    x.UserId == UserId)!;
+                ProductRecentlyWatchedRelationViewModel recentlyRelation =
+                    _context.ProductRecentlyWatchedRelation.FirstOrDefault(x => 
+                        x.RecentlyWatchedCartId == recentlyCart.Id && x.ProductId==productId)!;
+                _context.ProductRecentlyWatchedRelation.RemoveRange(recentlyRelation);
+                _context.SaveChangesAsync();
+                break;
+        }
+        
     }
 }

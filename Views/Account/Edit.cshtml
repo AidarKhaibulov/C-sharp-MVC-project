@@ -1,7 +1,7 @@
 ﻿@model WebMVC.Models.UserViewModel
 
 <h2>Редактирование пользователя</h2>
-<form asp-action="Edit" asp-controller="Account" asp-route-id="@Model.Id">
+<form asp-action="Edit" asp-controller="Account" asp-route-productId="@Model.Id">
     <p>
         <label asp-for="Username">Имя пользователя</label><br />
         <input type="text" asp-for="Username" />

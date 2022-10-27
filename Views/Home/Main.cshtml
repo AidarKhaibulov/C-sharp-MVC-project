@@ -9,6 +9,7 @@
 <div>
     <td><a asp-action="Favorite" asp-controller="Home">Избранное</a></td>
     <td><a asp-action="RecentlyWatched" asp-controller="Home">Недавно просмотренные</a></td>
+    <td><a asp-action="Filter" asp-controller="Home">Отфильтровать товары</a></td>
     <h3>MAIN</h3>
     <table class="table">
     <tr><th>Название товара</th><th>Цена товара</th></tr>
@@ -19,10 +20,10 @@
                 <td><a href="/Home/ProductInfo/{@item.Id}"> @item.Name</a></td>
                 <td>@item.Price</td>
                 <td>
-                    <a asp-action="AddToFavorite" asp-controller="Home" asp-route-id="@item.Id">Добавить в избранное</a>
+                    <a asp-action="AddToFavorite" asp-controller="Home" asp-route-productId="@item.Id">Добавить в избранное</a>
                 </td>
                 <td>
-                    <form asp-controller="Home" asp-action="Delete" method="post"  asp-route-id="@item.Id">
+                    <form asp-controller="Home" asp-action="Delete" method="post"  asp-route-productId="@item.Id">
                         <input type="submit" value="Удалить" />
                     </form>
                 </td>

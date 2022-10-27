@@ -22,7 +22,6 @@ public class AccountController:Controller
         db = context;
         users= db.User.ToList();
     }
-    /*[Route("Login")]*/
     public IActionResult Login()
     {
         return PartialView("Login");
@@ -72,11 +71,11 @@ public class AccountController:Controller
         //TODO: create custom authorize filter and use it instead checking HttpContext.Session.Keys.Contains("username") all the time
         return NotFound();
     }
-    public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> Edit(int? productId)
     {
-        if(id!=null)
+        if(productId!=null)
         {
-            UserViewModel? user = await db.User.FirstOrDefaultAsync(p=>p.Id==id);
+            UserViewModel? user = await db.User.FirstOrDefaultAsync(p=>p.Id==productId);
             if (user != null) return View(user);
         }
         return NotFound();
@@ -89,15 +88,15 @@ public class AccountController:Controller
         return RedirectToAction("UsersList");
     }
     [HttpPost]
-    public async Task<IActionResult> Delete(int? id)
+    public async Task<IActionResult> Delete(int? productId)
     {
-        Cart cart = await db.Cart.FirstOrDefaultAsync(x => x.UserId == id);
+        Cart cart = await db.Cart.FirstOrDefaultAsync(x => x.UserId == productId);
        
         List<ProductCartRelationViewModel> relation = db.ProductCartRelation.Where(x
             => x.FavoriteProductsId == cart.Id).ToList();
         db.ProductCartRelation.RemoveRange(relation);
         db.Cart.Remove(cart);
-        db.User.Remove(db.User.FirstOrDefault(x => x.Id == id));
+        db.User.Remove(db.User.FirstOrDefault(x => x.Id == productId));
         await db.SaveChangesAsync();
         return RedirectToAction("UsersList");
     }

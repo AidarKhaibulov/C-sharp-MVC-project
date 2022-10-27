@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebMVC.Models.ProductViewModel>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <div class="card-header">
+         <h5>Введите параметры фильтрации:</h5>
+    </div>
+    <form method="post" asp-controller="Home" asp-action="filter">
+        <div class="mb-3">
+            Минимальная цена<input type="number" name="minPrice"/>
+            <br>
+        </div>
+        <div class="mb-3">
+            Максимальная цена<input type="number" name="maxPrice" />
+            <br>
+        </div>
+        <input type="submit" value="Показать"/>
+    </form>
+    <table class="table">
+        <tr><th>Название товара</th><th>Цена товара</th></tr>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="/Home/ProductInfo/{@item.Id}"> @item.Name</a></td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a asp-action="AddToFavorite" asp-controller="Home" asp-route-productId="@item.Id">Добавить в избранное</a>
+                    </td>
+                    <td>
+                        <form asp-controller="Home" asp-action="Delete" method="post" asp-route-productId="@item.Id">
+                            <input type="submit" value="Удалить"/>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        </table>
+</div>
+</body>
+</html>

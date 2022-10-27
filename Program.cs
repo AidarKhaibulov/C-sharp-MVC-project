@@ -24,7 +24,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 );
 builder.Services.AddScoped<IRepository<UserViewModel>, UserRepository>();
 builder.Services.AddScoped<IRepository<ProductViewModel>, ProductsRepository>();
-builder.Services.AddScoped<ICartRepository<Cart>, CartRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -76,7 +76,7 @@ app.UseAuthentication();
 app.UseRouting();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{productId?}");
 /*app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

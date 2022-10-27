@@ -21,7 +21,7 @@ namespace WebMVC.Controllers;
     public class HomeController : Controller
     {
         private readonly IRepository<ProductViewModel> _productsRepository;
-        private readonly ICartRepository<Cart> _cartRepository;
+        private readonly ICartRepository _cartRepository;
         private readonly ApplicationContext _context;
 
         public enum CartType
@@ -32,7 +32,7 @@ namespace WebMVC.Controllers;
 
         public HomeController(
             IRepository<ProductViewModel> productsRepository,
-            ICartRepository<Cart> cartRepository,
+            ICartRepository cartRepository,
             ApplicationContext context
             )
         {
@@ -56,22 +56,42 @@ namespace WebMVC.Controllers;
         {
             return View(_productsRepository.Get());
         }
+        public async Task<IActionResult> Filter()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Filter(int minPrice, int maxPrice)
+        {
+            
+            return View(_cartRepository.FilterProductsByPrice(minPrice, maxPrice));
+        }
         
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int productId)
         {
-            _cartRepository.DeleteProductFromCart(id,(int) HttpContext.Session.GetInt32("username"));
+            _cartRepository.DeleteProductFromCart(CartType.FavoriteProducts,productId,(int) HttpContext.Session.GetInt32("username"));
             return RedirectToAction("Main");
         }
-        public async Task<IActionResult> AddToFavorite(string id)
+        public async Task<IActionResult> AddToFavorite(string productId)
         {
-            _cartRepository.AddProductToCart(CartType.FavoriteProducts,id,HttpContext.Session.GetInt32("username"));
+            _cartRepository.AddProductToCart(CartType.FavoriteProducts,productId,HttpContext.Session.GetInt32("username"));
             return RedirectToAction("Main");
         }
-        public async Task<IActionResult> ProductInfo(string id)
+        public async Task<IActionResult> ProductInfo(string productId)
         {
-            id = Regex.Match(id, @"\d+").ToString();
-            _cartRepository.AddProductToCart(CartType.RecentlyWatched,id,HttpContext.Session.GetInt32("username"));
-            ProductViewModel product = await _context.Product.FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(id));
+            int currentUserId = (int) HttpContext.Session.GetInt32("username");
+            int numberOfRowsInRecentlyCart =
+                _cartRepository.GetProductsCount(CartType.RecentlyWatched, currentUserId);
+            productId = Regex.Match(productId, @"\d+").ToString();
+            _cartRepository.AddProductToCart(CartType.RecentlyWatched,productId,currentUserId);
+            ProductViewModel product = (await _context.Product.FirstOrDefaultAsync(x =>
+                x.Id == Convert.ToInt32(productId)))!;
+            if (numberOfRowsInRecentlyCart > 3)
+            {
+                int productToDeleteId = _cartRepository.GetFirstProductIdInCart(CartType.RecentlyWatched,
+                    currentUserId);
+                _cartRepository.DeleteProductFromCart(CartType.RecentlyWatched,productToDeleteId,currentUserId);
+            }
             return View(product);
         }
         public async Task<IActionResult> Favorite()
