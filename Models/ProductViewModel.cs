@@ -14,6 +14,6 @@ public class ProductViewModel
     public string? Size { get; set; }
     public string Platform { get; set; }
     public string Image { get; set; }
-    public int? FavoriteId { get; set; }
     public ICollection<ProductCartRelationViewModel> Cart { get; set; }
+    public Categories Category { get; set; }
 }

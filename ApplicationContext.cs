@@ -29,6 +29,7 @@ public class ApplicationContext:IdentityDbContext<IdentityUser>
     public DbSet<RecentlyWatchedCartViewModel> RecentlyWatchedCart => Set<RecentlyWatchedCartViewModel>();
     public DbSet<ProductCartRelationViewModel> ProductCartRelation => Set<ProductCartRelationViewModel>();
     public DbSet<ProductRecentlyWatchedRelationViewModel> ProductRecentlyWatchedRelation => Set<ProductRecentlyWatchedRelationViewModel>();
+    public DbSet<Categories> Categories => Set<Categories>();
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
     {
@@ -38,6 +39,7 @@ public class ApplicationContext:IdentityDbContext<IdentityUser>
         base.OnModelCreating(builder);
         builder.Entity<ProductCartRelationViewModel>().HasKey(i => new { i.FavoriteProductsId, i.ProductId });
         builder.Entity<ProductRecentlyWatchedRelationViewModel>().HasKey(i => new { i.RecentlyWatchedCartId, i.ProductId });
+        builder.Entity<Categories>().HasKey(i => new { i.ProductId });
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

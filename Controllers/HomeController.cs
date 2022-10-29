@@ -61,10 +61,9 @@ namespace WebMVC.Controllers;
             return View();
         }
         [HttpPost]
-        public IActionResult Filter(int minPrice, int maxPrice)
+        public IActionResult Filter(int minPrice, int maxPrice,string categoryName)
         {
-            
-            return View(_cartRepository.FilterProductsByPrice(minPrice, maxPrice));
+            return View(_cartRepository.FilterProducts(minPrice, maxPrice,categoryName));
         }
         
         public async Task<IActionResult> Delete(int productId)

@@ -69,7 +69,7 @@ public class CartRepository:ICartRepository
         }
         return productId;
     }
-    public List<ProductViewModel> FilterProductsByPrice(int minValue, int maxValue)
+    public List<ProductViewModel> FilterProducts(int minValue, int maxValue,string categoryName)
     {
         if(maxValue==0)maxValue=Int32.MaxValue;
         List<ProductViewModel> productsToReturn = new List<ProductViewModel>();
