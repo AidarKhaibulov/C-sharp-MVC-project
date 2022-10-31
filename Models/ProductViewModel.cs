@@ -8,12 +8,12 @@ namespace WebMVC.Models;
 public class ProductViewModel
 {
     public int Id { get; set; }
-    public int CategoryId { get; set; }
+    public int? CategoryId { get; set; }
     public string Name { get; set; }
     public double Price { get; set; }
     public string? Size { get; set; }
     public string Platform { get; set; }
     public string Image { get; set; }
     public ICollection<ProductCartRelationViewModel> Cart { get; set; }
-    public Categories Category { get; set; }
+    public Categories? Category { get; set; }
 }

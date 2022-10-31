@@ -2,7 +2,8 @@
 
 public class Categories
 {
-    public int ProductId { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
+    public int SubCategory { get; set; }
     public List<ProductViewModel> Product { get; set; }
 }
