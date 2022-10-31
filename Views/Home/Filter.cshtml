@@ -12,15 +12,19 @@
     </div>
     <form method="post" asp-controller="Home" asp-action="filter">
         <div class="mb-3">
+              Название<input type="text" name="name" />
+              <br>
+        </div>
+        <div class="mb-3">
             Минимальная цена<input type="number" name="minPrice"/>
             <br>
         </div>
         <div class="mb-3">
-            Максимальная цена<input type="number" name="maxPrice" />
+            Максимальная цена<input type="number" name="maxPrice"/>
             <br>
         </div>
         <div class="mb-3">
-            Название категории<input type="text" name="categoryName" />
+            Название категории<input type="text" name="categoryName"/>
             <br>
         </div>
         <input type="submit" value="Показать"/>

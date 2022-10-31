@@ -69,11 +69,26 @@ public class CartRepository:ICartRepository
         }
         return productId;
     }
-    public List<ProductViewModel> FilterProducts(int minValue, int maxValue,string categoryName)
+    public List<ProductViewModel> FilterProducts(string name,int minValue, int maxValue,string categoryName)
     {
         if(maxValue==0)maxValue=Int32.MaxValue;
         List<ProductViewModel> productsToReturn = new List<ProductViewModel>();
         string script = File.ReadAllText(@"Scripts/FilterScripts/GetProducts.sql");
+        if (categoryName != null)
+        {
+            script=script.Replace("#", @"JOIN ""Categories"" C on C.""Id"" = p.""CategoryId""");
+            script=script.Replace("ToReplace", @"and C.""Name""=THIRD_REPLACE ToReplace");
+            script=script.Replace("THIRD_REPLACE", $"'{categoryName}'");
+        }
+        else
+            script=script.Replace("#", "");
+        if (name != null)
+        {
+            script = script.Replace("ToReplace", @"and p.""Name""=THIRD_REPLACE");
+            script=script.Replace("THIRD_REPLACE", $"'{name}'");
+        }
+        else
+            script=script.Replace("ToReplace", "");
         script = Regex.Replace(script, @"FIRST_VALUE", minValue.ToString());
         script = Regex.Replace(script, @"SECOND_VALUE", maxValue.ToString());
         using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
