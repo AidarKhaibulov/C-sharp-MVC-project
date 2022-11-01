@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebMVC.Interfaces;
 using WebMVC.Models;
 using WebMVC.Services;
 
@@ -11,16 +12,13 @@ namespace WebMVC.Controllers;
 [ApiController]*/
 public class AccountController:Controller
 {
-    private ApplicationContext db;
-    private static List<UserViewModel> users;
-
+    private readonly IRepository<UserViewModel> _usersRepository;
     private AccountService accountService;
 
-    public AccountController(ApplicationContext context,AccountService _accountService)
+    public AccountController(IRepository<UserViewModel> usersRepository,AccountService _accountService)
     {
-        accountService = _accountService; 
-        db = context;
-        users= db.User.ToList();
+        accountService = _accountService;
+        _usersRepository = usersRepository;
     }
     public IActionResult Login()
     {
@@ -58,8 +56,7 @@ public class AccountController:Controller
     [HttpPost]
     public async Task<IActionResult> Register(UserViewModel userViewModel)
     {
-        db.User.Add(userViewModel);
-        await db.SaveChangesAsync();
+        _usersRepository.Add(userViewModel);
         if(HttpContext.Session.Keys.Contains("username"))
             return Redirect("/Home/Main");
         return Redirect("/");
@@ -67,15 +64,15 @@ public class AccountController:Controller
     public async Task<IActionResult> UsersList()
     {
         if(HttpContext.Session.Keys.Contains("username"))
-            return View(await db.User.ToListAsync());
+            return View( _usersRepository.Get());
         //TODO: create custom authorize filter and use it instead checking HttpContext.Session.Keys.Contains("username") all the time
         return NotFound();
     }
-    public async Task<IActionResult> Edit(int? productId)
+    public async Task<IActionResult> Edit(int? userId)
     {
-        if(productId!=null)
+        if(userId!=null)
         {
-            UserViewModel? user = await db.User.FirstOrDefaultAsync(p=>p.Id==productId);
+            UserViewModel? user = _usersRepository.GetById((int) userId);
             if (user != null) return View(user);
         }
         return NotFound();
@@ -83,21 +80,13 @@ public class AccountController:Controller
     [HttpPost]
     public async Task<IActionResult> Edit(UserViewModel user)
     {
-        db.User.Update(user);
-        await db.SaveChangesAsync();
+        _usersRepository.Update(user);
         return RedirectToAction("UsersList");
     }
     [HttpPost]
-    public async Task<IActionResult> Delete(int? productId)
+    public async Task<IActionResult> Delete(int? userId)
     {
-        Cart cart = await db.Cart.FirstOrDefaultAsync(x => x.UserId == productId);
-       
-        List<ProductCartRelationViewModel> relation = db.ProductCartRelation.Where(x
-            => x.FavoriteProductsId == cart.Id).ToList();
-        db.ProductCartRelation.RemoveRange(relation);
-        db.Cart.Remove(cart);
-        db.User.Remove(db.User.FirstOrDefault(x => x.Id == productId));
-        await db.SaveChangesAsync();
+       _usersRepository.Delete((int) userId);
         return RedirectToAction("UsersList");
     }
     

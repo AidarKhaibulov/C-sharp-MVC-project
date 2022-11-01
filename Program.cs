@@ -76,7 +76,7 @@ app.UseAuthentication();
 app.UseRouting();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{productId?}");
+    pattern: "{controller=Account}/{action=Login}/{userId?}");
 /*app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

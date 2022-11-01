@@ -18,10 +18,10 @@
                 <td> @Model.Platform</td>
                 <td> @Model.Size</td>
                 <td>
-                    <a asp-action="AddToFavorite" asp-controller="Home" asp-route-productId="@Model.Id">Добавить в избранное</a>
+                    <a asp-action="AddToFavorite" asp-controller="Home" asp-route-userId="@Model.Id">Добавить в избранное</a>
                 </td>
                 <td>
-                    <form asp-controller="Home" asp-action="Delete" method="post"  asp-route-productId="@Model.Id">
+                    <form asp-controller="Home" asp-action="Delete" method="post"  asp-route-userId="@Model.Id">
                         <input type="submit" value="Удалить" />
                     </form>
                 </td>

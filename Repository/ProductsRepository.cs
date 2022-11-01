@@ -12,6 +12,12 @@ public class ProductsRepository:IRepository<ProductViewModel>
     {
         _context = context;  
     }
+
+    public void Add(ProductViewModel entity)
+    {
+        throw new NotImplementedException();
+    }
+
     public ICollection<ProductViewModel> Get()
     {
         return  _context.Product.OrderBy(x => x.Id).ToList();
@@ -23,6 +29,11 @@ public class ProductsRepository:IRepository<ProductViewModel>
     }
 
     public void Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(ProductViewModel entity)
     {
         throw new NotImplementedException();
     }

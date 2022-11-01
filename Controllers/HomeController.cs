@@ -66,25 +66,25 @@ namespace WebMVC.Controllers;
             return View(_cartRepository.FilterProducts(name,minPrice, maxPrice,categoryName));
         }
         
-        public async Task<IActionResult> Delete(int productId)
+        public async Task<IActionResult> Delete(int userId)
         {
-            _cartRepository.DeleteProductFromCart(CartType.FavoriteProducts,productId,(int) HttpContext.Session.GetInt32("username"));
+            _cartRepository.DeleteProductFromCart(CartType.FavoriteProducts,userId,(int) HttpContext.Session.GetInt32("username"));
             return RedirectToAction("Main");
         }
-        public async Task<IActionResult> AddToFavorite(string productId)
+        public async Task<IActionResult> AddToFavorite(string userId)
         {
-            _cartRepository.AddProductToCart(CartType.FavoriteProducts,productId,HttpContext.Session.GetInt32("username"));
+            _cartRepository.AddProductToCart(CartType.FavoriteProducts,userId,HttpContext.Session.GetInt32("username"));
             return RedirectToAction("Main");
         }
-        public async Task<IActionResult> ProductInfo(string productId)
+        public async Task<IActionResult> ProductInfo(string userId)
         {
             int currentUserId = (int) HttpContext.Session.GetInt32("username");
             int numberOfRowsInRecentlyCart =
                 _cartRepository.GetProductsCount(CartType.RecentlyWatched, currentUserId);
-            productId = Regex.Match(productId, @"\d+").ToString();
-            _cartRepository.AddProductToCart(CartType.RecentlyWatched,productId,currentUserId);
+            userId = Regex.Match(userId, @"\d+").ToString();
+            _cartRepository.AddProductToCart(CartType.RecentlyWatched,userId,currentUserId);
             ProductViewModel product = (await _context.Product.FirstOrDefaultAsync(x =>
-                x.Id == Convert.ToInt32(productId)))!;
+                x.Id == Convert.ToInt32(userId)))!;
             if (numberOfRowsInRecentlyCart > 3)
             {
                 int productToDeleteId = _cartRepository.GetFirstProductIdInCart(CartType.RecentlyWatched,

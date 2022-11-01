@@ -10,10 +10,10 @@
             <td>@item.Email</td>
             <td>@item.Password</td>
             <td>
-                <a asp-action="Edit" asp-controller="Account" asp-route-productId="@item.Id">Изменить</a>
+                <a asp-action="Edit" asp-controller="Account" asp-route-userId="@item.Id">Изменить</a>
             </td>
             <td>
-                <form asp-controller="Account" asp-action="Delete" method="post"  asp-route-productId="@item.Id">
+                <form asp-controller="Account" asp-action="Delete" method="post"  asp-route-userId="@item.Id">
                     <input type="submit" value="Удалить" />
                 </form>
             </td>
