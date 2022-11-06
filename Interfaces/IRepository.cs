@@ -1,7 +1,4 @@
-﻿using System.Linq.Expressions;
-using WebMVC.Models;
-
-namespace WebMVC.Interfaces;
+﻿namespace WebMVC.Interfaces;
 
 public interface IRepository<TEntity> where TEntity :class
 {

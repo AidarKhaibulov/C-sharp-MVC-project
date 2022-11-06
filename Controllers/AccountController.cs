@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebMVC.Interfaces;
 using WebMVC.Models;
 using WebMVC.Services;
@@ -8,16 +7,14 @@ namespace WebMVC.Controllers;
 /// <summary>
 /// User's accounts controller. Performs LogIn, Registration logic. Provides account's information, allows edit and delete data.
 /// </summary>
-/*[Route("api/[controller]")]
-[ApiController]*/
 public class AccountController:Controller
 {
     private readonly IRepository<UserViewModel> _usersRepository;
-    private AccountService accountService;
+    private AccountService _accountService;
 
     public AccountController(IRepository<UserViewModel> usersRepository,AccountService _accountService)
     {
-        accountService = _accountService;
+        this._accountService = _accountService;
         _usersRepository = usersRepository;
     }
     public IActionResult Login()
@@ -27,7 +24,7 @@ public class AccountController:Controller
     [HttpPost]
     public IActionResult Login(string username, string password)
     {
-        var account = accountService.Login(username, password);
+        var account = _accountService.Login(username, password);
         if (account != null)
         {
             HttpContext.Session.SetInt32("username",account.Id);
@@ -41,8 +38,7 @@ public class AccountController:Controller
     /// </summary>
     public IActionResult Welcome()
     {
-        ViewBag.username = HttpContext.Session.GetInt32("username");
-        return View();
+        return View(_usersRepository.GetById((int) HttpContext.Session.GetInt32("username")));
     }
     public IActionResult Logout()
     {
@@ -89,5 +85,4 @@ public class AccountController:Controller
        _usersRepository.Delete((int) userId);
         return RedirectToAction("UsersList");
     }
-    
 }

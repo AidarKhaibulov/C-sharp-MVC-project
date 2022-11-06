@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using WebMVC.Interfaces;
+﻿using WebMVC.Interfaces;
 using WebMVC.Models;
 
 namespace WebMVC.Repository;
@@ -32,7 +30,7 @@ public class UserRepository: IRepository <UserViewModel>
 
     public void Delete(int id)
     {
-        Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == id)!;
+        /*Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == id)!;
         RecentlyWatchedCartViewModel recentlyWatchedCart = _context.RecentlyWatchedCart.FirstOrDefault(x => x.UserId == id)!;
         if (cart != null)
         {
@@ -48,6 +46,8 @@ public class UserRepository: IRepository <UserViewModel>
             _context.ProductRecentlyWatchedRelation.RemoveRange(relation2);
             _context.RecentlyWatchedCart.Remove(recentlyWatchedCart);
         }
+        _context.User.Remove(_context.User.FirstOrDefault(x => x.Id == id)!);
+        _context.SaveChanges();*/
         _context.User.Remove(_context.User.FirstOrDefault(x => x.Id == id)!);
         _context.SaveChanges();
     }

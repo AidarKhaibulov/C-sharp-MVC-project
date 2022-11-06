@@ -1,15 +1,8 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using WebMVC.Interfaces;
 using WebMVC.Models;
-using WebMVC.Repository;
 
 namespace WebMVC.Controllers;
 

@@ -1,8 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebMVC;
@@ -13,7 +11,6 @@ using WebMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
-
 // For Entity Framework
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationContext>(options =>
@@ -28,7 +25,6 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddControllersWithViews();
 // For Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>()
@@ -60,15 +56,10 @@ builder.Services.AddScoped<AccountService, AccountServiceImplementation>();
 builder.Services.AddMvc();
 var app = builder.Build();
 app.UseSession();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    //app.UseHsts();
 }
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -77,11 +68,6 @@ app.UseRouting();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{userId?}");
-/*app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});*/
-
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
