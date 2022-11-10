@@ -55,8 +55,7 @@ builder.Services.AddSession();
 builder.Services.AddScoped<AccountService, AccountServiceImplementation>();
 builder.Services.AddMvc();
 var app = builder.Build();
-app.UseSession();
-if (app.Environment.IsDevelopment())
+app.UseSession(); if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

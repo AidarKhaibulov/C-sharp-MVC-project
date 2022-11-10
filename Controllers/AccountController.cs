@@ -10,7 +10,7 @@ namespace WebMVC.Controllers;
 public class AccountController:Controller
 {
     private readonly IRepository<UserViewModel> _usersRepository;
-    private AccountService _accountService;
+    private readonly AccountService _accountService;
 
     public AccountController(IRepository<UserViewModel> usersRepository,AccountService _accountService)
     {
@@ -33,9 +33,6 @@ public class AccountController:Controller
         ViewBag.msg = "Неправильно введен логин или пароль";
         return View("Login");
     }
-    /// <summary>
-    /// Main account page, contains information about current session and LogOut button
-    /// </summary>
     public IActionResult Welcome()
     {
         return View(_usersRepository.GetById((int) HttpContext.Session.GetInt32("username")));
@@ -76,6 +73,7 @@ public class AccountController:Controller
     [HttpPost]
     public async Task<IActionResult> Edit(UserViewModel user)
     {
+        Console.WriteLine(user.Id);
         _usersRepository.Update(user);
         return RedirectToAction("UsersList");
     }

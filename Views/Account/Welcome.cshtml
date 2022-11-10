@@ -37,4 +37,7 @@ a.customButton1:active {
   <a asp-controller="Account" asp-action="Register" class="customButton1">Добавить пользователя</a>
   </div>
 }
+<div>
+<a asp-action="Edit" asp-controller="Account" asp-route-userId="@Model.Id" class="customButton1">Изменить данные</a>
+</div>
 <a asp-controller="Account" asp-action="Logout" class="customButton1">Выйти из системы</a>
