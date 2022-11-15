@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wW/iahIIURTLHUdbd62KtRC9+gMhIGnguvD7Ovq9YZ8=",
+  "Hash": "3IubrDpNG5WKuqVie1zGchccWGsFu2H56xShFNcPiNo=",
   "Source": "WebMVC",
   "BasePath": "_content/WebMVC",
   "Mode": "Default",
@@ -270,6 +270,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
+      "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\css\\style1.css",
+      "SourceId": "WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\",
+      "BasePath": "_content/WebMVC",
+      "RelativePath": "css/style1.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style1.css"
     },
     {
       "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\icon-fonts\\Flaticon.eot",

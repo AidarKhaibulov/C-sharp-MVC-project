@@ -11,10 +11,10 @@
                                 <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
                                 <script type='text/javascript' src='https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js'></script>
                             </head>
-                            <body oncontextmenu='return false' class='snippet-body'>
+                            <body oncontextmenu='return false' class='snippet-body ' style="display: flex; align-items: center">
                             <div class="container">
-    <div class="row">
-        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+
+        <div class="mx-auto " style="width: 33%">
             <div class="panel border bg-white">
                 <div class="panel-heading">
                     <h3 class="pt-3 font-weight-bold">Вход</h3>
@@ -29,7 +29,7 @@
                             <div class="input-field"> <span class="fas fa-lock px-2"></span> <input type="password" name="password" placeholder="Пароль"/> </div>
                         </div>
                         <div class="form-inline"> <input type="checkbox" name="remember" id="remember"> <label for="remember" class="text-muted">Запомнить меня</label> <a href="#" id="forgot" class="font-weight-bold">Забыли пароль?</a> </div>
-                        <div class="btn btn-primary btn-block mt-3"><input type="submit" value="Войти"/></div>
+                        <input class="btn btn-primary btn-block mt-3" type="submit" value="Войти"/>
                         <div class="text-center pt-4 text-muted">Нет аккаунта? <a href="#"> <a asp-action="register" asp-controller="Account">Регистрация</a></a> </div>
                     </form>
                 </div>
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-</div>
+
                             <script type='text/javascript'></script>
                             </body>
                         </html>
