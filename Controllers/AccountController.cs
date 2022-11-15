@@ -31,7 +31,7 @@ public class AccountController:Controller
             return Redirect("Home/Main");
         }
         ViewBag.msg = "Неправильно введен логин или пароль";
-        return View("Login");
+        return PartialView("Login");
     }
     public IActionResult Welcome()
     {

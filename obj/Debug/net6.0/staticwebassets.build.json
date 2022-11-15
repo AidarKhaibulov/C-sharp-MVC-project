@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "c5c6tJk+yLk/Egr11qPsgvVU3kNlEbHCzT9JZoJ6SaE=",
+  "Hash": "wW/iahIIURTLHUdbd62KtRC9+gMhIGnguvD7Ovq9YZ8=",
   "Source": "WebMVC",
   "BasePath": "_content/WebMVC",
   "Mode": "Default",
@@ -66,23 +66,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\cart.html"
-    },
-    {
-      "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\category.html",
-      "SourceId": "WebMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\",
-      "BasePath": "_content/WebMVC",
-      "RelativePath": "category.html",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\category.html"
     },
     {
       "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\checkout.html",
@@ -202,6 +185,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\jquery-ui.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\css\\login-style.css",
+      "SourceId": "WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\",
+      "BasePath": "_content/WebMVC",
+      "RelativePath": "css/login-style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\login-style.css"
     },
     {
       "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\css\\owl.carousel.min.css",
@@ -780,6 +780,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\icons\\3.png"
+    },
+    {
+      "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\img\\login-background.jpg",
+      "SourceId": "WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\",
+      "BasePath": "_content/WebMVC",
+      "RelativePath": "img/login-background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\login-background.jpg"
     },
     {
       "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\img\\logo-light.png",
@@ -2327,23 +2344,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
-    },
-    {
-      "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\product.html",
-      "SourceId": "WebMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\",
-      "BasePath": "_content/WebMVC",
-      "RelativePath": "product.html",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\product.html"
     },
     {
       "Identity": "C:\\Users\\79021\\RiderProjects\\WebMVC\\WebMVC\\wwwroot\\Source\\bootstrap-4.2.1-dist.zip",
