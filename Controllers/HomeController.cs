@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebMVC.Interfaces;
 using WebMVC.Models;
 
@@ -48,13 +49,14 @@ namespace WebMVC.Controllers;
         public async Task<IActionResult> Main()
         {
             return View(_productsRepository.Get());
+            
         }
         public async Task<IActionResult> Filter()
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Filter(string name,int minPrice, int maxPrice,string categoryName)
+        [HttpGet]
+        public IActionResult Main(string name,int minPrice, int maxPrice,string categoryName)
         {
             return View(_cartRepository.FilterProducts(name,minPrice, maxPrice,categoryName));
         }

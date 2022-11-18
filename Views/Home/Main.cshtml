@@ -114,11 +114,11 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>CAtegory PAge</h4>
-			<div class="site-pagination">
+			<h4>Главная</h4>
+			<!--<div class="site-pagination">
 				<a href="">Home</a> /
 				<a href="">Shop</a> /
-			</div>
+			</div>-->
 		</div>
 	</div>
 	<!-- Page info end -->
@@ -134,12 +134,12 @@
 						<ul class="category-menu">
 							<li><a href="#">Рюкзаки</a>
 								<ul class="sub-menu">
-									<li><a href="#">до 20 литров <span>(2)</span></a></li>
-									<li><a href="#">20-40 литров<span>(56)</span></a></li>
-									<li><a href="#">40-60 литров<span>(36)</span></a></li>
-									<li><a href="#">60-80 литров<span>(27)</span></a></li>
-									<li><a href="#">80-100 литров<span>(19)</span></a></li>
-									<li><a href="#">от 100 литров<span>(19)</span></a></li>
+									<li><a href="#">до 20 литров </a></li>
+									<li><a href="#">20-40 литров</a></li>
+									<li><a href="#">40-60 литров</a></li>
+									<li><a href="#">60-80 литров</a></li>
+									<li><a href="#">80-100 литров</a></li>
+									<li><a href="#">от 100 литров</a></li>
 								</ul>
 							</li>
 							<li><a href="#">Man Wear</a>
@@ -155,10 +155,10 @@
 						</ul>
 					</div>
 					<div class="filter-widget mb-0">
-						<h2 class="fw-title">refine by</h2>
+						<h2 class="fw-title">Фильтрация</h2>
 						<div class="price-range-wrap">
 							<h4>Price</h4>
-                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="10" data-max="270">
+                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="0" data-max="900000">
 								<div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
 								<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;">
 								</span>
@@ -166,14 +166,29 @@
 								</span>
 							</div>
 							<div class="range-slider">
-                                <div class="price-input">
-                                    <input type="text" id="minamount">
-                                    <input type="text" id="maxamount">
-                                </div>
-                            </div>
+								<div class="price-input">
+									<input type="text" id="minamount">
+									<input type="text" id="maxamount">
+
+								</div>
+							</div>
+							
+							<form method="Get" asp-controller="Home" asp-action="Main">
+								<div class="mb-3">
+                                        <input type="number" name="minPrice"/>
+                                        <br>
+                                    </div>
+								<div class="mb-3">
+									<input type="number" name="maxPrice">
+									<br>
+								</div>
+								<input type="submit" value="Показать"/>
+							</form>
+
                         </div>
 					</div>
-					<div class="filter-widget mb-0">
+					<!-- Category section -->
+					<!--<div class="filter-widget mb-0">
 						<h2 class="fw-title">color by</h2>
 						<div class="fw-color-choose">
 							<div class="cs-item">
@@ -213,9 +228,9 @@
 								</label>
 							</div>
 						</div>
-					</div>
+					</div>-->
 					<div class="filter-widget mb-0">
-						<h2 class="fw-title">Size</h2>
+						<h2 class="fw-title">Размер</h2>
 						<div class="fw-size-choose">
 							<div class="sc-item">
 								<input type="radio" name="sc" id="xs-size">
@@ -243,7 +258,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="filter-widget">
+					<!--<div class="filter-widget">
 						<h2 class="fw-title">Brand</h2>
 						<ul class="category-menu">
 							<li><a href="#">Abercrombie & Fitch <span>(2)</span></a></li>
@@ -252,7 +267,7 @@
 							<li><a href="#">Missguided<span>(27)</span></a></li>
 							<li><a href="#">Zara<span>(19)</span></a></li>
 						</ul>
-					</div>
+					</div>-->
 				</div>
 
 				<div class="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
