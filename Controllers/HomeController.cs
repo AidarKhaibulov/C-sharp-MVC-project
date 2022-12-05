@@ -49,7 +49,6 @@ namespace WebMVC.Controllers;
         public async Task<IActionResult> Main()
         {
             return View(_productsRepository.Get());
-            
         }
         public async Task<IActionResult> Filter()
         {
@@ -58,9 +57,11 @@ namespace WebMVC.Controllers;
         [HttpGet]
         public IActionResult Main(string name,int minPrice, int maxPrice,string categoryName)
         {
-            if (_cartRepository.FilterProducts(name, minPrice, maxPrice, categoryName) != null)
-                return View(_cartRepository.FilterProducts(name, minPrice, maxPrice, categoryName));
-            return NotFound("ЭТОТ ЗАПРОС СОДЕРЖИТ ПОСЛЕДОВАТЕЛЬНОСТЬ ДВОЙНОГО ПРЕОБРАЗОВАНИЯ СИМВОЛОВ!");
+            if (categoryName == null)
+                return View(_productsRepository.Get());
+            return View(_cartRepository.FilterProducts(name, minPrice, maxPrice, categoryName));
+            //return NotFound("ЭТОТ ЗАПРОС СОДЕРЖИТ ПОСЛЕДОВАТЕЛЬНОСТЬ ДВОЙНОГО ПРЕОБРАЗОВАНИЯ СИМВОЛОВ!");
+
         }
         
         public async Task<IActionResult> Delete(int userId)
