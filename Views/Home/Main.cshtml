@@ -11,7 +11,7 @@
 	<meta name="keywords" content="divisima, eCommerce, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
-	<link href="../img/favicon.ico" rel="shortcut icon"/>
+	<link href="../img/logo.png" rel="shortcut icon"/>
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -48,12 +48,12 @@
 					<div class="col-lg-2 text-center text-lg-left">
 						<!-- logo -->
 						<a href="./index.html" class="site-logo">
-							<img src="img/logo.png" alt="">
+							<img src="../img/logo.png" alt="">
 						</a>
 					</div>
 					<div class="col-xl-6 col-lg-5">
 						<form class="header-search-form">
-							<input type="text" placeholder="Search on divisima ....">
+							<input type="text" placeholder="Поиск по объявлениям...">
 							<button><i class="flaticon-search"></i></button>
 						</form>
 					</div>
@@ -61,14 +61,14 @@
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="#">Sign</a> In or <a href="#">Create Account</a>
+								<a href="#">Войти</a> или <a href="#">Создать аккаунт</a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
 									<span>0</span>
 								</div>
-								<a href="#">Shopping Cart</a>
+								<a href="#">Корзина</a>
 							</div>
 						</div>
 					</div>
@@ -79,22 +79,22 @@
 			<div class="container">
 				<!-- menu -->
 				<ul class="main-menu">
-					<li><a href="#">Home</a></li>
-					<li><a href="#">Women</a></li>
-					<li><a href="#">Men</a></li>
-					<li><a href="#">Jewelry
-						<span class="new">New</span>
+					<li><a href="#">Главная</a></li>
+					<li><a href="#">-</a></li>
+					<li><a href="#">-</a></li>
+					<li><a href="#">-
+						<span class="new">-</span>
 					</a></li>
-					<li><a href="#">Shoes</a>
+					<li><a href="#">-</a>
 						<ul class="sub-menu">
-							<li><a href="#">Sneakers</a></li>
-							<li><a href="#">Sandals</a></li>
-							<li><a href="#">Formal Shoes</a></li>
-							<li><a href="#">Boots</a></li>
-							<li><a href="#">Flip Flops</a></li>
+							<li><a href="#">-</a></li>
+							<li><a href="#">-</a></li>
+							<li><a href="#">-</a></li>
+							<li><a href="#">-</a></li>
+							<li><a href="#">-</a></li>
 						</ul>
 					</li>
-					<li><a href="#">Pages</a>
+					<li><a href="#">-</a>
 						<ul class="sub-menu">
 							<li><a href="./product.cshtml">Product Page</a></li>
 							<li><a href="./category.html">Category Page</a></li>
@@ -115,6 +115,9 @@
 	<div class="page-top-info">
 		<div class="container">
 			<h4>Главная</h4>
+			<h5><li><a asp-action="RecentlyWatched" asp-controller="Home"  method="Get" >Недавно просмотренные</a></li></h5>
+			<h5><li><a asp-action="Favorite" asp-controller="Home"  method="Get" >Избранное</a></li></h5>
+			<h5><li><a asp-action="Welcome" asp-controller="Account"  method="Get" >Профиль</a></li></h5>
 			<!--<div class="site-pagination">
 				<a href="">Home</a> /
 				<a href="">Shop</a> /
@@ -134,30 +137,36 @@
 						<ul class="category-menu">
 							<li><a href="#">Рюкзаки</a>
 								<ul class="sub-menu">
-									<li><a href="#">до 20 литров </a></li>
-									<li><a href="#">20-40 литров</a></li>
-									<li><a href="#">40-60 литров</a></li>
-									<li><a href="#">60-80 литров</a></li>
-									<li><a href="#">80-100 литров</a></li>
-									<li><a href="#">от 100 литров</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="20-40 литров">20-40 литров</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="40-60 литров">40-60 литров</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="60-80 литров">60-80 литров</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="80-100 литров">80-100 литров</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="от 100 литров">от 100 литров</a></li>
 								</ul>
 							</li>
-							<li><a href="#">Man Wear</a>
+							<li><a href="#">Одежда</a>
 								<ul class="sub-menu">
-									<li><a href="#">Midi Dresses <span>(2)</span></a></li>
-									<li><a href="#">Maxi Dresses<span>(56)</span></a></li>
-									<li><a href="#">Prom Dresses<span>(36)</span></a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="Куртки">Куртки</a></li>
+                                    <li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="Ветровки">Ветровки</a></li>
 								</ul></li>
-							<li><a href="#">Children</a></li>
-							<li><a href="#">Bags & Purses</a></li>
-							<li><a href="#">Eyewear</a></li>
-							<li><a href="#">Footwear</a></li>
+							<li><a href="#">Обувь</a>
+								<ul class="sub-menu">
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="Кроссовки">Кроссовки</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="Ботинки">Ботинки</a></li>
+									</ul></li>
+							<li><a href="#">Палатки</a>
+								<ul class="sub-menu">
+                                									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="Одноместные палатки">Одноместные палатки</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="Двухместные палатки">Двухместные палатки</a></li>
+									<li><a asp-action="Main" asp-controller="Home"  method="Get" asp-route-categoryName="Трехместные палатки">Трехместные палатки</a></li>
+                                									</ul>
+								</li>
 						</ul>
 					</div>
 					<div class="filter-widget mb-0">
 						<h2 class="fw-title">Фильтрация</h2>
 						<div class="price-range-wrap">
-							<h4>Price</h4>
+							<h4>Цена</h4>
                             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="0" data-max="900000">
 								<div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
 								<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;">

@@ -71,37 +71,45 @@ public class CartRepository:ICartRepository
     }
     public List<ProductViewModel> FilterProducts(string name,int minValue, int maxValue,string categoryName)
     {
-        if(maxValue==0)maxValue=Int32.MaxValue;
-        List<ProductViewModel> productsToReturn = new List<ProductViewModel>();
-        string script = File.ReadAllText(@"Scripts/FilterScripts/GetProducts.sql");
-        if (categoryName != null)
+        if (categoryName.Length < 20)
         {
-            script=script.Replace("#", @"JOIN ""Categories"" C on C.""Id"" = p.""CategoryId""");
-            script=script.Replace("ToReplace", @"and C.""Name""=THIRD_REPLACE ToReplace");
-            script=script.Replace("THIRD_REPLACE", $"'{categoryName}'");
+            if (maxValue == 0) maxValue = Int32.MaxValue;
+            List<ProductViewModel> productsToReturn = new List<ProductViewModel>();
+            string script = File.ReadAllText(@"Scripts/FilterScripts/GetProducts.sql");
+            if (categoryName != null)
+            {
+                script = script.Replace("#", @"JOIN ""Categories"" C on C.""Id"" = p.""CategoryId""");
+                script = script.Replace("ToReplace", @"and C.""Name""=THIRD_REPLACE ToReplace");
+                script = script.Replace("THIRD_REPLACE", $"'{categoryName}'");
+            }
+            else
+                script = script.Replace("#", "");
+
+            if (name != null)
+            {
+                script = script.Replace("ToReplace", @"and p.""Name""=THIRD_REPLACE");
+                script = script.Replace("THIRD_REPLACE", $"'{name}'");
+            }
+            else
+                script = script.Replace("ToReplace", "");
+
+            script = Regex.Replace(script, @"FIRST_VALUE", minValue.ToString());
+            script = Regex.Replace(script, @"SECOND_VALUE", maxValue.ToString());
+            Console.WriteLine(script);
+            using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
+            {
+                sqlConn.Open();
+                NpgsqlCommand sqlCmd = new NpgsqlCommand(script, sqlConn);
+                NpgsqlDataReader reader = sqlCmd.ExecuteReader();
+                if (reader.HasRows)
+                    while (reader.Read())
+                        productsToReturn.Add(_context.Product.FirstOrDefault(x => x.Id == reader.GetInt32(0)));
+                reader.CloseAsync();
+            }
+
+            return productsToReturn;
         }
-        else
-            script=script.Replace("#", "");
-        if (name != null)
-        {
-            script = script.Replace("ToReplace", @"and p.""Name""=THIRD_REPLACE");
-            script=script.Replace("THIRD_REPLACE", $"'{name}'");
-        }
-        else
-            script=script.Replace("ToReplace", "");
-        script = Regex.Replace(script, @"FIRST_VALUE", minValue.ToString());
-        script = Regex.Replace(script, @"SECOND_VALUE", maxValue.ToString());
-        using (var sqlConn = new NpgsqlConnection(ApplicationContext.ConnectionString))
-        {
-            sqlConn.Open();
-            NpgsqlCommand sqlCmd = new NpgsqlCommand(script, sqlConn);
-            NpgsqlDataReader reader = sqlCmd.ExecuteReader();
-            if (reader.HasRows)
-                while (reader.Read())
-                    productsToReturn.Add(_context.Product.FirstOrDefault(x=>x.Id==reader.GetInt32(0)));
-            reader.CloseAsync();
-        }
-        return productsToReturn;
+        return null;
     }
 
     public int GetProductsCount(HomeController.CartType targetCartType, int? userId)

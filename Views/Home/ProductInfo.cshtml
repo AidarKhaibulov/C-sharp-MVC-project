@@ -1,11 +1,11 @@
-@model ProductViewModel
+@model List<ProductViewModel>
 @{
     Layout = null;
 }
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>Divisima | eCommerce Template</title>
+	<title>Agregator - @Model[0].Name</title>
 	<meta charset="UTF-8">
 	<meta name="description" content=" Divisima | eCommerce Template">
 	<meta name="keywords" content="divisima, eCommerce, creative, html">
@@ -62,14 +62,14 @@
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="#">Sign</a> In or <a href="#">Create Account</a>
+								<a href="#">Войти </a>или <a href="#">Создать аккаунт</a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
 									<span>0</span>
 								</div>
-								<a href="#">Shopping Cart</a>
+								<a href="#">Корзина</a>
 							</div>
 						</div>
 					</div>
@@ -80,13 +80,13 @@
 			<div class="container">
 				<!-- menu -->
 				<ul class="main-menu">
-					<li><a href="#">Home</a></li>
+					<li><a href="#">-</a></li>
 					<li><a href="#">Women</a></li>
 					<li><a href="#">Men</a></li>
 					<li><a href="#">Jewelry
 						<span class="new">New</span>
 					</a></li>
-					<li><a href="#">Shoes</a>
+					<li><a href="#">-</a>
 						<ul class="sub-menu">
 							<li><a href="#">Sneakers</a></li>
 							<li><a href="#">Sandals</a></li>
@@ -95,7 +95,7 @@
 							<li><a href="#">Flip Flops</a></li>
 						</ul>
 					</li>
-					<li><a href="#">Pages</a>
+					<li><a href="#">-</a>
 						<ul class="sub-menu">
 							<li><a href="./product.html">Product Page</a></li>
 							<li><a href="./category.html">Category Page</a></li>
@@ -104,7 +104,7 @@
 							<li><a href="./contact.html">Contact Page</a></li>
 						</ul>
 					</li>
-					<li><a href="#">Blog</a></li>
+					<li><a href="#">-</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -115,11 +115,13 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>Category PAge</h4>
-			<div class="site-pagination">
-				<a href="">Home</a> /
-				<a href="">Shop</a>
-			</div>
+			<h4>Страница товара</h4>
+		<!--
+		<div class="site-pagination">
+			<a href="">Home</a> /
+			<a href="">Shop</a>
+		</div>
+		-->
 		</div>
 	</div>
 	<!-- Page info end -->
@@ -129,12 +131,12 @@
 	<section class="product-section">
 		<div class="container">
 			<div class="back-link">
-				<a href="/Home/Main"> &lt;&lt; Back to Category</a>
+				<a href="/Home/Main"> &lt;&lt;Вернуться назад</a>
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="product-pic-zoom">
-						<img class="product-big-img" src="../../images/@Model.Image" alt="">
+						<img class="product-big-img" src="../../images/@Model[0].Image" alt="">
 					</div>
 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
 						<div class="product-thumbs-track">
@@ -146,13 +148,13 @@
 					</div>
 				</div>
 				<div class="col-lg-6 product-details">
-					<h2 class="p-title">@Model.Name</h2>
-					<h3 class="p-price">@Model.Price руб.</h3>
+					<h2 class="p-title">@Model[0].Name</h2>
+					<h3 class="p-price">@Model[0].Price руб.</h3>
 					<div class="p-review">
-						<a href="">3 reviews</a>|<a href="">Add your review</a>
+						<a href="">3 отзыва о продавце</a>|<a href="">Оставить отзыв о продавце</a>
 					</div>
 					<div class="fw-size-choose">
-						<p>Size</p>
+						<p>Размер</p>
 						<div class="sc-item">
 							<input type="radio" name="sc" id="xs-size">
 							<label for="xs-size">32</label>
@@ -178,19 +180,21 @@
 							<label for="xxl-size">42</label>
 						</div>
 					</div>
-					<div class="quantity">
-						<p>Quantity</p>
-                        <div class="pro-qty"><input type="text" value="1"></div>
-                    </div>
-					<a href="#" class="site-btn">SHOP NOW</a>
+				<!--
+				<div class="quantity">
+					<p>Quantity</p>
+					<div class="pro-qty"><input type="text" value="1"></div>
+				</div>
+				-->
+					<a href="#" class="site-btn">Связаться с продавцом</a>
 					<div id="accordion" class="accordion-area">
 						<div class="panel">
 							<div class="panel-header" id="headingOne">
-								<button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
+								<button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Описание</button>
 							</div>
 							<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 								<div class="panel-body">
-									<p>@Model.Description</p>
+									<p>@Model[0].Description</p>
 								</div>
 							</div>
 						</div>
@@ -232,79 +236,29 @@
 	<!-- product section end -->
 
 
-	<!-- RELATED PRODUCTS section -->
+	<!-- RECENTLY WATCHED PRODUCTS section -->
 	<section class="related-product-section">
 		<div class="container">
 			<div class="section-title">
-				<h2>RELATED PRODUCTS</h2>
+				<h2>НЕДАВНО ПРОСМОТРЕННЫЕ</h2>
 			</div>
 			<div class="product-slider owl-carousel">
+			@for (int i=1;i<@Model.Count-1;i++)
+			{
 				<div class="product-item">
 					<div class="pi-pic">
-						<img src="./img/product/1.jpg" alt="">
+						<img src="../../images/@Model[i].Image" alt="">
 						<div class="pi-links">
 							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
 							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
 						</div>
 					</div>
 					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Flamboyant Pink Top </p>
+						<h6>@Model[i].Price p.</h6>
+						<p>@Model[i].Name </p>
 					</div>
 				</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<div class="tag-new">New</div>
-						<img src="./img/product/2.jpg" alt="">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Black and White Stripes Dress</p>
-					</div>
-				</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<img src="./img/product/3.jpg" alt="">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Flamboyant Pink Top </p>
-					</div>
-				</div>
-				<div class="product-item">
-						<div class="pi-pic">
-							<img src="./img/product/4.jpg" alt="">
-							<div class="pi-links">
-								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-							</div>
-						</div>
-						<div class="pi-text">
-							<h6>$35,00</h6>
-							<p>Flamboyant Pink Top </p>
-						</div>
-					</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<img src="./img/product/6.jpg" alt="">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Flamboyant Pink Top </p>
-					</div>
-				</div>
+			}
 			</div>
 		</div>
 	</section>

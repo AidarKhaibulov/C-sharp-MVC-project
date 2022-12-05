@@ -63,6 +63,10 @@ public class AccountController:Controller
     }
     public async Task<IActionResult> Edit(int? userId)
     {
+        Console.WriteLine(userId.ToString());
+        int currentUserId = (int) HttpContext.Session.GetInt32("username");
+        if (currentUserId != userId)
+            return NotFound("У вас нет прав доступа к этому аккаунту!");
         if(userId!=null)
         {
             UserViewModel? user = _usersRepository.GetById((int) userId);
@@ -73,7 +77,6 @@ public class AccountController:Controller
     [HttpPost]
     public async Task<IActionResult> Edit(UserViewModel user)
     {
-        Console.WriteLine(user.Id);
         _usersRepository.Update(user);
         return RedirectToAction("UsersList");
     }

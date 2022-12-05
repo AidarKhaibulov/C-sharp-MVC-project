@@ -58,7 +58,9 @@ namespace WebMVC.Controllers;
         [HttpGet]
         public IActionResult Main(string name,int minPrice, int maxPrice,string categoryName)
         {
-            return View(_cartRepository.FilterProducts(name,minPrice, maxPrice,categoryName));
+            if (_cartRepository.FilterProducts(name, minPrice, maxPrice, categoryName) != null)
+                return View(_cartRepository.FilterProducts(name, minPrice, maxPrice, categoryName));
+            return NotFound("ЭТОТ ЗАПРОС СОДЕРЖИТ ПОСЛЕДОВАТЕЛЬНОСТЬ ДВОЙНОГО ПРЕОБРАЗОВАНИЯ СИМВОЛОВ!");
         }
         
         public async Task<IActionResult> Delete(int userId)
@@ -78,7 +80,7 @@ namespace WebMVC.Controllers;
                 _cartRepository.GetProductsCount(CartType.RecentlyWatched, currentUserId);
             userId = Regex.Match(userId, @"\d+").ToString();
             _cartRepository.AddProductToCart(CartType.RecentlyWatched,userId,currentUserId);
-            ProductViewModel product = (await _context.Product.FirstOrDefaultAsync(x =>
+            ProductViewModel product = ( _context.Product.FirstOrDefault(x =>
                 x.Id == Convert.ToInt32(userId)))!;
             if (numberOfRowsInRecentlyCart > 3)
             {
@@ -86,7 +88,11 @@ namespace WebMVC.Controllers;
                     currentUserId);
                 _cartRepository.DeleteProductFromCart(CartType.RecentlyWatched,productToDeleteId,currentUserId);
             }
-            return View(product);
+
+            List<ProductViewModel> result = _cartRepository.GetProducts(CartType.RecentlyWatched,
+                (int) HttpContext.Session.GetInt32("username"));
+            result.Insert(0,product);
+            return View(result);
         }
         public async Task<IActionResult> Favorite()
         {
