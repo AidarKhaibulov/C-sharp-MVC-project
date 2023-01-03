@@ -1,0 +1,18 @@
+﻿@model List<ProductViewModel>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Главная</title>
+</head>
+
+<body>
+<div>
+    <h3>Вы недавно смотрели эти товары:</h3>
+    @foreach (var item in Model)
+    {
+        <p>@item.Name</p>
+    }
+</div>
+</body>
+</html>

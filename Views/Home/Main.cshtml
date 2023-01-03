@@ -68,7 +68,7 @@
 									<i class="flaticon-bag"></i>
 									<span>0</span>
 								</div>
-								<a href="#">Корзина</a>
+								<a href="/Home/Favorite">Избранное</a>
 							</div>
 						</div>
 					</div>
@@ -79,8 +79,8 @@
 			<div class="container">
 				<!-- menu -->
 				<ul class="main-menu">
-					<li><a href="#">Главная</a></li>
-					<li><a href="#">-</a></li>
+					<li><a href="/Home/Main">Главная</a></li>
+					<li><a href="/Home/RecentlyWatched">Недавно просмотренные</a></li>
 					<li><a href="#">-</a></li>
 					<li><a href="#">-
 						<span class="new">-</span>
@@ -109,23 +109,6 @@
 		</nav>
 	</header>
 	<!-- Header section end -->
-
-
-	<!-- Page info -->
-	<div class="page-top-info">
-		<div class="container">
-			<h4>Главная</h4>
-			<h5><li><a asp-action="RecentlyWatched" asp-controller="Home"  method="Get" >Недавно просмотренные</a></li></h5>
-			<h5><li><a asp-action="Favorite" asp-controller="Home"  method="Get" >Избранное</a></li></h5>
-			<h5><li><a asp-action="Welcome" asp-controller="Account"  method="Get" >Профиль</a></li></h5>
-			<!--<div class="site-pagination">
-				<a href="">Home</a> /
-				<a href="">Shop</a> /
-			</div>-->
-		</div>
-	</div>
-	<!-- Page info end -->
-
 
 	<!-- Category section -->
 	<section class="category-section spad">

@@ -1,11 +1,11 @@
-@model List<ProductViewModel>
+@model ProductViewModel
 @{
     Layout = null;
 }
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>Agregator - @Model[0].Name</title>
+	<title>Agregator - @Model.Name</title>
 	<meta charset="UTF-8">
 	<meta name="description" content=" Divisima | eCommerce Template">
 	<meta name="keywords" content="divisima, eCommerce, creative, html">
@@ -136,7 +136,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="product-pic-zoom">
-						<img class="product-big-img" src="../../images/@Model[0].Image" alt="">
+						<img class="product-big-img" src="../../images/@Model.Image" alt="">
 					</div>
 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
 						<div class="product-thumbs-track">
@@ -148,8 +148,8 @@
 					</div>
 				</div>
 				<div class="col-lg-6 product-details">
-					<h2 class="p-title">@Model[0].Name</h2>
-					<h3 class="p-price">@Model[0].Price руб.</h3>
+					<h2 class="p-title">@Model.Name</h2>
+					<h3 class="p-price">@Model.Price руб.</h3>
 					<div class="p-review">
 						<a href="">3 отзыва о продавце</a>|<a href="">Оставить отзыв о продавце</a>
 					</div>
@@ -194,7 +194,7 @@
 							</div>
 							<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 								<div class="panel-body">
-									<p>@Model[0].Description</p>
+									<p>@Model.Description</p>
 								</div>
 							</div>
 						</div>
@@ -236,32 +236,18 @@
 	<!-- product section end -->
 
 
-	<!-- RECENTLY WATCHED PRODUCTS section -->
+	<!-- RECENTLY WATCHED PRODUCTS section 
 	<section class="related-product-section">
 		<div class="container">
 			<div class="section-title">
 				<h2>НЕДАВНО ПРОСМОТРЕННЫЕ</h2>
 			</div>
 			<div class="product-slider owl-carousel">
-			@for (int i=1;i<@Model.Count-1;i++)
-			{
-				<div class="product-item">
-					<div class="pi-pic">
-						<img src="../../images/@Model[i].Image" alt="">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>@Model[i].Price p.</h6>
-						<p>@Model[i].Name </p>
-					</div>
-				</div>
-			}
+			
 			</div>
 		</div>
 	</section>
+	-->
 	<!-- RELATED PRODUCTS section end -->
 
 

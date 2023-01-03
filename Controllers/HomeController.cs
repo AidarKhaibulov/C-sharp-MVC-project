@@ -34,14 +34,8 @@ namespace WebMVC.Controllers;
             _cartRepository = cartRepository;
             _context=context;
         }
-        /// <summary>
-        /// JWT registration form. DELETE
-        /// </summary>
-        public IActionResult Index()
-        {
-            //DELETE
-            return View();
-        }
+        
+        
 
         /// <summary>
         /// Represents main page with products list
@@ -90,10 +84,10 @@ namespace WebMVC.Controllers;
                 _cartRepository.DeleteProductFromCart(CartType.RecentlyWatched,productToDeleteId,currentUserId);
             }
 
-            List<ProductViewModel> result = _cartRepository.GetProducts(CartType.RecentlyWatched,
+            /*List<ProductViewModel> result = _cartRepository.GetProducts(CartType.RecentlyWatched,
                 (int) HttpContext.Session.GetInt32("username"));
-            result.Insert(0,product);
-            return View(result);
+            result.Insert(0,product);*/
+            return View(product);
         }
         public async Task<IActionResult> Favorite()
         {
