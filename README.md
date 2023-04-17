@@ -5,6 +5,11 @@ The application provides information about the announcements of the market of se
 The web application allows users registered in the system to obtain information about the desired announcements. 
 
 # Demonstration & DB script
+![1](https://user-images.githubusercontent.com/110534715/232521395-85649ba3-40a4-4bb6-a589-0db41e81f025.png)
+![3](https://user-images.githubusercontent.com/110534715/232521535-315747b6-5a87-470c-89f8-ccacf398507e.png)
+![4](https://user-images.githubusercontent.com/110534715/232521591-0fba2d37-a16b-4253-bc8d-5ad4bd13fa67.png)
+![5](https://user-images.githubusercontent.com/110534715/232521624-333c31a4-6bf6-46ce-b3b0-4314859b3a12.png)
+
 All the demonstration files are placed in demo folder.
 DB backups files(include sql script) are placed in PostgreSQL folder.
 
